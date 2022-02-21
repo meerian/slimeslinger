@@ -1,35 +1,25 @@
-import { getBullet, bulletsLength, addBullet, bulletLocationUpdate } from "./bullet.js";
-import { addEnemy, enemiesLength, enemyLocationUpate, getEnemy, spawnLocation } from "./enemy.js";
-import { defaultUserCreator,userLocationUpdate } from "./user.js";
+import { addBullet, bulletLocationUpdate } from "./bullet.js";
+import { addEnemy, enemyLocationUpate, spawnLocation } from "./enemy.js";
+import { defaultUser,userLocationUpdate } from "./user.js";
 
-var defaultUser = defaultUserCreator();
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var spawnRadius = 50;
 var score = 0;
 var lives = 3;
 var count = 0;
-
-resetState();
-
-function resetState() {
+export var canvasLocation = [];
+for (var i = 0; i < canvas.height * 2; i++) {
+    canvasLocation[i] = new Array(1000).fill(0);
 }
 
-function drawUser() {
-    ctx.beginPath();
-    ctx.arc(defaultUser.x, defaultUser.y, defaultUser.radius, 0, Math.PI * 2);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
-}
-
-function drawBullet() {
-    for (var i = 0; i < bulletsLength(); i++) {
-        ctx.beginPath();
-        ctx.rect(getBullet(i).x, getBullet(i).y, 2, 2);
-        ctx.fillStyle = "#00dd29";
-        ctx.fill();
-        ctx.closePath();
+function drawAll() {
+    for (var i = 0; i < canvasLocation.length; i++) {
+        for (var j = 0; j < canvasLocation[0].length; j++) {
+            if (canvasLocation[i][j] != 0) {
+                canvasLocation[i][j].draw();
+            }
+        }
     }
 }
 
@@ -59,16 +49,6 @@ function enemySpawnLocation() {
     setTimeout(enemySpawnLocation, 1000);
 }
 
-function drawEnemy() {
-    for (var i = 0; i < enemiesLength(); i++) {
-        ctx.beginPath();
-        ctx.rect(getEnemy(i).x, getEnemy(i).y, 10, 10);
-        ctx.fillStyle = "#dd2100";
-        ctx.fill();
-        ctx.closePath();
-    }
-}
-
 function drawValue() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
@@ -83,19 +63,19 @@ function drawLives() {
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); //clears canvas
-    drawUser(); //draw new user location
-    drawBullet(); //draw new bullet locations
+    drawAll(); //updates all locations
     drawSpawn();
-    drawEnemy();
     drawValue();
-    userLocationUpdate(defaultUser); //updates user location based on keystrokes
+    userLocationUpdate(); //updates user location based on keystrokes
     bulletLocationUpdate(); //upates bullet location to next frame
-    enemyLocationUpate();
-
+    enemyLocationUpate(); //updates enemy location to next frame
 
     requestAnimationFrame(draw);
 }
+function start() {
+    enemySpawnLocation();
+    bulletAutofire();
+    draw();
+}
 
-enemySpawnLocation();
-bulletAutofire();
-draw();
+start();

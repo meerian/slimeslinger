@@ -1,16 +1,12 @@
-import { defaultUserCreator } from "./user.js";
+import { canvasLocation } from "./main.js";
+import { defaultUser } from "./user.js";
 
 var canvas = document.getElementById("myCanvas");
-var defaultUser = defaultUserCreator();
+var ctx = canvas.getContext("2d");
 var enemies = [];
-var enemiesLocations = [];
 var spawnLocation = [];
 
 var spawnRadius = 10;
-
-for (var i = 0; i < canvas.height * 2; i++) {
-    enemiesLocations[i] = new Array(1000).fill(0);
-}
 
 class enemy {
     constructor(x, y) {
@@ -26,21 +22,30 @@ class enemy {
     get y() { return this._y; }
     set y(newY) { this._y = newY; }
 
+    draw() {
+        ctx.beginPath();
+        ctx.rect(this.x, this.y, 10, 10);
+        ctx.fillStyle = "#dd2100";
+        ctx.fill();
+        ctx.closePath();
+
+    }
+
     updateLocation() {
         var userLocation = defaultUser.getLocation();
-        enemiesLocations[this.x * 2][this.y * 2] = 0;
-        if (this.x < userLocation[0] && enemiesLocations[(this.x + this.speed) * 2][this.y * 2] == 0) {
+        canvasLocation[this.x * 2][this.y * 2] = 0;
+        if (this.x < userLocation[0] && canvasLocation[(this.x + this.speed) * 2][this.y * 2] == 0) {
             this.x += this.speed;
-        } else if (enemiesLocations[(this.x - this.speed) * 2][this.y * 2] == 0){
+        } else if (canvasLocation[(this.x - this.speed) * 2][this.y * 2] == 0){
             this.x -= this.speed;
         }
 
-        if (this.y < userLocation[1] && enemiesLocations[this.x * 2][(this.y + this.speed) * 2] == 0) {
+        if (this.y < userLocation[1] && canvasLocation[this.x * 2][(this.y + this.speed) * 2] == 0) {
             this.y += this.speed;
-        } else if (enemiesLocations[this.x * 2][(this.y - this.speed) * 2] == 0) {
+        } else if (canvasLocation[this.x * 2][(this.y - this.speed) * 2] == 0) {
             this.y -= this.speed;
         }
-        enemiesLocations[this.x * 2][this.y * 2] = 1;
+        canvasLocation[this.x * 2][this.y * 2] = this;
     }
 }
 
@@ -53,7 +58,6 @@ function addEnemy() {
     var ptRadiusSq = Math.sqrt(Math.random()) * spawnRadius;
     var enemyX = Math.sqrt(ptRadiusSq) * Math.cos(ptAngle);
     var enemyY = Math.sqrt(ptRadiusSq) * Math.sin(ptAngle);
-    console.log(Math.floor(enemyX + spawnLocation[0]) + " and " + Math.floor(enemyY + spawnLocation[1]));
     enemies.push(new enemy(Math.floor(enemyX + spawnLocation[0]), Math.floor(enemyY + spawnLocation[1])));
 }
 

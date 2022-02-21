@@ -1,6 +1,8 @@
 import { currentDirection } from "./eventListeners.js";
+import { canvasLocation } from "./main.js";
 
 var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
 
 class user {
     constructor() {
@@ -9,6 +11,7 @@ class user {
         this.x = 250;
         this.y = 250;
         this.speed = 2;
+        console.log(this.x + ' and ' + this.y);
     }
 
     get direction() { return this._direction; }
@@ -20,73 +23,81 @@ class user {
     get speed() { return this._speed; }
     set speed(newSpeed) { this._speed = newSpeed; }
 
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+    }
+
     hitBorderX() { return this.x + this.radius > canvas.width || this.x - this.radius < 0; }
     hitBorderY() { return this.y + this.radius > canvas.height || this.y - this.radius < 0; }
     getLocation() {
-        var curLocation = [defaultUser.x, defaultUser.y];
+        var curLocation = [this.x, this.y];
         return curLocation;
     }
 }
 
 var defaultUser = new user();
 
-export function defaultUserCreator() {
-    return defaultUser;
-}
-
-export function userLocationUpdate(user) {
+function userLocationUpdate() {
+    canvasLocation[defaultUser.x][defaultUser.y] = 0;
     if (currentDirection.rightPressed) {
-        user.x += user.speed;
+        defaultUser.x += defaultUser.speed;
         if (currentDirection.upPressed) {
-            user.direction = "up right";
+            defaultUser.direction = "up right";
         } else if (currentDirection.downPressed) {
-            user.direction = "down right";
+            defaultUser.direction = "down right";
         } else {
-            user.direction = "right";
+            defaultUser.direction = "right";
         }
-        if (user.hitBorderX()) {
-            user.x = canvas.width - user.radius;
+        if (defaultUser.hitBorderX()) {
+            defaultUser.x = canvas.width - defaultUser.radius;
         }
     }
     if (currentDirection.leftPressed) {
-        user.x -= user.speed;
+        defaultUser.x -= defaultUser.speed;
         if (currentDirection.upPressed) {
-            user.direction = "up left";
+            defaultUser.direction = "up left";
         } else if (currentDirection.downPressed) {
-            user.direction = "down left";
+            defaultUser.direction = "down left";
         } else {
-            user.direction = "left";
+            defaultUser.direction = "left";
         }
-        if (user.hitBorderX()) {
-            user.x = user.radius;
+        if (defaultUser.hitBorderX()) {
+            defaultUser.x = defaultUser.radius;
         }
     }
 
     if (currentDirection.downPressed) {
-        user.y += user.speed;
+        defaultUser.y += defaultUser.speed;
         if (currentDirection.rightPressed) {
-            user.direction = "down right";
+            defaultUser.direction = "down right";
         } else if (currentDirection.leftPressed) {
-            user.direction = "down left";
+            defaultUser.direction = "down left";
         } else {
-            user.direction = "down";
+            defaultUser.direction = "down";
         }
-        if (user.hitBorderY()) {
-            user.y = canvas.height - user.radius;
+        if (defaultUser.hitBorderY()) {
+            defaultUser.y = canvas.height - defaultUser.radius;
         }
     }
 
     if (currentDirection.upPressed) {
-        user.y -= user.speed;
+        defaultUser.y -= defaultUser.speed;
         if (currentDirection.rightPressed) {
-            user.direction = "up right";
+            defaultUser.direction = "up right";
         } else if (currentDirection.leftPressed) {
-            user.direction = "up left";
+            defaultUser.direction = "up left";
         } else {
-            user.direction = "up";
+            defaultUser.direction = "up";
         }
-        if (user.hitBorderY()) {
-            user.y = user.radius;
+        if (defaultUser.hitBorderY()) {
+            defaultUser.y = defaultUser.radius;
         }
     }
+    canvasLocation[defaultUser.x][defaultUser.y] = defaultUser;
 }
+
+export { defaultUser, userLocationUpdate };
