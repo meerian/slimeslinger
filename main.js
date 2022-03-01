@@ -1,5 +1,5 @@
 import { addBullet, bulletLocationUpdate } from "./bullet.js";
-import { addEnemy, enemyLocationUpate, spawnLocation } from "./enemy.js";
+import { addEnemy, enemiesLength, enemyLocationUpate, spawnLocation } from "./enemy.js";
 import { defaultUser,userLocationUpdate } from "./user.js";
 
 var canvas = document.getElementById("myCanvas");
@@ -52,7 +52,7 @@ function enemySpawnLocation() {
 function drawValue() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("enemies: " + "and", 8, 20);
+    ctx.fillText("enemies:" + enemiesLength(), 8, 20);
 }
 
 function drawLives() {
@@ -67,8 +67,8 @@ function draw() {
     drawSpawn();
     drawValue();
     userLocationUpdate(); //updates user location based on keystrokes
-    bulletLocationUpdate(); //upates bullet location to next frame
     enemyLocationUpate(); //updates enemy location to next frame
+    bulletLocationUpdate(); //updates bullet location to next frame
 
     requestAnimationFrame(draw);
 }

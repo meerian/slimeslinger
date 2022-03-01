@@ -15,12 +15,15 @@ class enemy {
         this.x = x;
         this.y = y;
         this.speed = 0.5;
+        this.isAlive = true;
     }
 
     get x() { return this._x; }
     set x(newX) { this._x = newX; }
     get y() { return this._y; }
     set y(newY) { this._y = newY; }
+    get isAlive() { return this._isAlive; }
+    set isAlive(newStatus) { this._isAlive = newStatus; }
 
     draw() {
         ctx.beginPath();
@@ -28,7 +31,6 @@ class enemy {
         ctx.fillStyle = "#dd2100";
         ctx.fill();
         ctx.closePath();
-
     }
 
     updateLocation() {
@@ -45,7 +47,9 @@ class enemy {
         } else if (canvasLocation[this.x * 2][(this.y - this.speed) * 2] == 0) {
             this.y -= this.speed;
         }
-        canvasLocation[this.x * 2][this.y * 2] = this;
+        if (enemyCheck(this)){
+            canvasLocation[this.x * 2][this.y * 2] = this;
+        }
     }
 }
 
@@ -65,10 +69,15 @@ function enemiesLength() {
     return enemies.length;
 }
 
+function enemyCheck(enemy) {
+    return enemy.isAlive;
+}
+
 function enemyLocationUpate() {
     for (var i = 0; i < enemies.length; i++) {
         enemies[i].updateLocation();
     }
+    enemies = enemies.filter(curEnemy => enemyCheck(curEnemy));
 }
 
-export { spawnLocation, getEnemy, enemiesLength, addEnemy, enemyLocationUpate };
+export { enemy, spawnLocation, getEnemy, enemiesLength, addEnemy, enemyLocationUpate };
