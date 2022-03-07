@@ -11,7 +11,9 @@ class user {
         this.x = 250;
         this.y = 250;
         this.speed = 2;
-        console.log(this.x + ' and ' + this.y);
+        this.lives = 3;
+        this.lastHit = new Date();
+        this.color = "#0095DD";
     }
 
     get direction() { return this._direction; }
@@ -26,9 +28,22 @@ class user {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = this.color;
         ctx.fill();
         ctx.closePath();
+    }
+
+    takeDamage() {
+        var newHit = new Date();
+        if ((newHit - this.lastHit) < 1000) { return; }
+        if (this.lives == 1) {
+            alert("YOU LOSE! Your score is: ");
+            document.location.reload();
+        }
+        this.lives--;
+        this.lastHit = newHit;
+        this.color = "#99d4f1";
+        setTimeout(resetColor, 1000)
     }
 
     hitBorderX() { return this.x + this.radius > canvas.width || this.x - this.radius < 0; }
@@ -40,6 +55,10 @@ class user {
 }
 
 var defaultUser = new user();
+
+function resetColor() {
+    defaultUser.color = "#0095DD";
+}
 
 function userLocationUpdate() {
     canvasLocation[defaultUser.x][defaultUser.y] = 0;

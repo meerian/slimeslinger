@@ -1,4 +1,4 @@
-import { bulletCollide } from "./collision.js";
+import { bulletCollide } from "./collisionHandler.js";
 import { canvasLocation } from "./main.js";
 
 var canvas = document.getElementById("myCanvas");

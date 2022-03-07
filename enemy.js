@@ -1,3 +1,4 @@
+import { enemyCollide } from "./collisionHandler.js";
 import { canvasLocation } from "./main.js";
 import { defaultUser } from "./user.js";
 
@@ -35,17 +36,26 @@ class enemy {
 
     updateLocation() {
         var userLocation = defaultUser.getLocation();
+        var newX = this.x;
+        var newY = this.y;
         canvasLocation[this.x * 2][this.y * 2] = 0;
-        if (this.x < userLocation[0] && canvasLocation[(this.x + this.speed) * 2][this.y * 2] == 0) {
-            this.x += this.speed;
-        } else if (canvasLocation[(this.x - this.speed) * 2][this.y * 2] == 0){
-            this.x -= this.speed;
+        if (this.x < userLocation[0]) {
+            newX = this.x + this.speed;
+        } else if (this.x > userLocation[0]) {
+            newX = this.x - this.speed;
+        }
+        if (this.y < userLocation[1]) {
+            newY = this.y + this.speed;
+        } else if (this.y > userLocation[1]) {
+            newY = this.y - this.speed;
         }
 
-        if (this.y < userLocation[1] && canvasLocation[this.x * 2][(this.y + this.speed) * 2] == 0) {
-            this.y += this.speed;
-        } else if (canvasLocation[this.x * 2][(this.y - this.speed) * 2] == 0) {
-            this.y -= this.speed;
+        var cur = canvasLocation[newX * 2][newY * 2];
+        if (newX == userLocation[0] && newY == userLocation[1]) {
+            enemyCollide();
+        } else if (cur == 0) {
+            this.x = newX;
+            this.y = newY;
         }
         if (enemyCheck(this)){
             canvasLocation[this.x * 2][this.y * 2] = this;

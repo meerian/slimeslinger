@@ -6,7 +6,6 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var spawnRadius = 50;
 var score = 0;
-var lives = 3;
 var count = 0;
 export var canvasLocation = [];
 for (var i = 0; i < canvas.height * 2; i++) {
@@ -52,13 +51,13 @@ function enemySpawnLocation() {
 function drawValue() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("enemies:" + enemiesLength(), 8, 20);
+    ctx.fillText("enemies:" + defaultUser.getLocation(), 8, 20);
 }
 
 function drawLives() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
+    ctx.fillText("Lives: " + defaultUser.lives, canvas.width - 65, 20);
 }
 
 function draw() {
@@ -66,12 +65,14 @@ function draw() {
     drawAll(); //updates all locations
     drawSpawn();
     drawValue();
+    drawLives();
     userLocationUpdate(); //updates user location based on keystrokes
     enemyLocationUpate(); //updates enemy location to next frame
     bulletLocationUpdate(); //updates bullet location to next frame
 
     requestAnimationFrame(draw);
 }
+
 function start() {
     enemySpawnLocation();
     bulletAutofire();
