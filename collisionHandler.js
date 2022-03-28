@@ -1,4 +1,4 @@
-import { canvasLocation } from "./main.js";
+import { canvasLocation, updateScore } from "./main.js";
 import { enemy } from "./enemy.js";
 import { defaultUser } from "./user.js"
 
@@ -8,6 +8,7 @@ function bulletCollide(bullet) {
         current.isAlive = false;
         canvasLocation[bullet.x * 2][bullet.y * 2] = 0;
         bullet.isAlive = false;
+        updateScore(1);
     }
 }
 
