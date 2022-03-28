@@ -7,6 +7,7 @@ var ctx = canvas.getContext("2d");
 var spawnRadius = 50;
 var score = 0;
 var count = 0;
+var startTime = new Date().getTime();
 export var canvasLocation = [];
 for (var i = 0; i < canvas.height * 2; i++) {
     canvasLocation[i] = new Array(1000).fill(0);
@@ -20,6 +21,16 @@ function drawAll() {
             }
         }
     }
+}
+
+function startScore() {
+    var cur = new Date().getTime();
+    score = Math.floor((cur - startTime) / 1000);
+    setTimeout(startScore, 100);
+}
+
+export function updateScore(x) {
+    score += x;
 }
 
 function drawSpawn() {
@@ -48,10 +59,15 @@ function enemySpawnLocation() {
     setTimeout(enemySpawnLocation, 1000);
 }
 
+export function endGame() {
+    alert("YOU LOSE! Your score is: " + score);
+    document.location.reload();
+}
+
 function drawValue() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("enemies:" + defaultUser.getLocation(), 8, 20);
+    ctx.fillText("Score:" + score, 8, 20);
 }
 
 function drawLives() {
@@ -74,6 +90,7 @@ function draw() {
 }
 
 function start() {
+    startScore();
     enemySpawnLocation();
     bulletAutofire();
     draw();

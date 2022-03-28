@@ -1,5 +1,5 @@
 import { currentDirection } from "./eventListeners.js";
-import { canvasLocation } from "./main.js";
+import { canvasLocation, endGame } from "./main.js";
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -37,8 +37,7 @@ class user {
         var newHit = new Date();
         if ((newHit - this.lastHit) < 1000) { return; }
         if (this.lives == 1) {
-            alert("YOU LOSE! Your score is: ");
-            document.location.reload();
+            endGame();
         }
         this.lives--;
         this.lastHit = newHit;
