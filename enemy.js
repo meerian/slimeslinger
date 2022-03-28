@@ -5,9 +5,6 @@ import { defaultUser } from "./user.js";
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var enemies = [];
-var spawnLocation = [];
-
-var spawnRadius = 10;
 
 class enemy {
     constructor(x, y) {
@@ -67,12 +64,8 @@ function getEnemy(i) {
     return enemies[i];
 }
 
-function addEnemy() {
-    var ptAngle = Math.random() * 2 * Math.PI;
-    var ptRadiusSq = Math.sqrt(Math.random()) * spawnRadius;
-    var enemyX = Math.sqrt(ptRadiusSq) * Math.cos(ptAngle);
-    var enemyY = Math.sqrt(ptRadiusSq) * Math.sin(ptAngle);
-    enemies.push(new enemy(Math.floor(enemyX + spawnLocation[0]), Math.floor(enemyY + spawnLocation[1])));
+function addEnemy(x, y) {
+    enemies.push(new enemy(x, y));
 }
 
 function enemiesLength() {
@@ -90,4 +83,4 @@ function enemyLocationUpate() {
     enemies = enemies.filter(curEnemy => enemyCheck(curEnemy));
 }
 
-export { enemy, spawnLocation, getEnemy, enemiesLength, addEnemy, enemyLocationUpate };
+export { enemy, getEnemy, enemiesLength, addEnemy, enemyLocationUpate };

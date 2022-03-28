@@ -1,12 +1,10 @@
 import { addBullet, bulletLocationUpdate } from "./bullet.js";
-import { addEnemy, enemiesLength, enemyLocationUpate, spawnLocation } from "./enemy.js";
+import { addEnemy, enemyLocationUpate } from "./enemy.js";
 import { defaultUser,userLocationUpdate } from "./user.js";
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var spawnRadius = 50;
 var score = 0;
-var count = 0;
 var startTime = new Date().getTime();
 export var canvasLocation = [];
 for (var i = 0; i < canvas.height * 2; i++) {
@@ -33,29 +31,32 @@ export function updateScore(x) {
     score += x;
 }
 
-function drawSpawn() {
-    ctx.beginPath();
-    ctx.arc(spawnLocation[0], spawnLocation[1], spawnRadius, 0, Math.PI * 2);
-    ctx.strokeStyle = "rgba(221, 0, 22, " + (count == 0 ? 0.3: 1 - 0.5 / count) + ")";
-    ctx.stroke();
-    ctx.closePath();
-}
-
 function bulletAutofire() {
     addBullet(defaultUser.x, defaultUser.y, defaultUser.direction);
     setTimeout(bulletAutofire, 500);
 }
 
 function enemySpawnLocation() {
-    if (!count) {
-        var x = Math.random() * (canvas.width - spawnRadius - spawnRadius) + spawnRadius; //formula to find coord in canvas
-        var y = Math.random() * (canvas.width - spawnRadius - spawnRadius) + spawnRadius; //formula to find coord in canvas
-        spawnLocation[0] = x;
-        spawnLocation[1] = y;
-        count = 5;
+    var check = Math.floor(Math.random() * 4 + 1);
+    var x = 0;
+    var y = 0;
+    switch(check) {
+        case 1:
+            x = Math.floor(Math.random() * (canvas.width - 1));
+            break;
+        case 2:
+            y = Math.floor(Math.random() * (canvas.width - 1));
+            break;
+        case 3:
+            x = Math.floor(Math.random() * (canvas.width - 1));
+            y = canvas.width - 1;
+            break;
+        case 4:
+            x = canvas.width - 1;
+            y = Math.floor(Math.random() * (canvas.width - 1));
+            break;
     }
-    addEnemy();
-    count--;
+    addEnemy(x, y);
     setTimeout(enemySpawnLocation, 1000);
 }
 
@@ -79,7 +80,6 @@ function drawLives() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); //clears canvas
     drawAll(); //updates all locations
-    drawSpawn();
     drawValue();
     drawLives();
     userLocationUpdate(); //updates user location based on keystrokes
