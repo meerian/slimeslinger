@@ -1,11 +1,40 @@
 body {
-    background-color: whitesmoke;
+    background-color: lightblue;
   }
   
   h1 {
-    color: lightblue;
+    color: darkblue;
     text-align: center;
   }
+
+  .wrapper {
+    margin: 0 auto;
+    width: 800px;
+    position: relative;
+  }
+
+  .Score {
+    color: darkblue;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .Lives {
+    color: darkblue;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .Pause {
+    color: darkblue;
+    position: absolute;
+    top: 50;
+    right: 50;
+  }
+
+
   
   canvas {
     padding-left: 0;

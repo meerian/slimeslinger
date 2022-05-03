@@ -6,8 +6,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <h1> Shooter </h1>
-<canvas id="myCanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
+
+<div class="wrapper"> 
+
+    <div class="Score">
+        <p id="Score"> Score: 0</p>
+    </div>
+
+    <div class="Pause">
+        <button id="Pause">Start</button>
+    </div>
+
+    <canvas id="myCanvas" width="500" height="500" style="border:1px solid #000000;"></canvas>
+
+    <div class="Lives">
+        <p id="Lives"> Lives: 0 </p>
+    </div>
+
+</div>
+
 
 <script type = "module" src = "main.js"></script>
 
