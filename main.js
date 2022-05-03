@@ -48,27 +48,30 @@ function bulletAutofire() {
 }
 
 function enemySpawnLocation() {
-    var check = Math.floor(Math.random() * 4 + 1);
-    var x = 0;
-    var y = 0;
-    switch(check) {
-        case 1:
-            x = Math.floor(Math.random() * (canvas.width - 1));
-            break;
-        case 2:
-            y = Math.floor(Math.random() * (canvas.width - 1));
-            break;
-        case 3:
-            x = Math.floor(Math.random() * (canvas.width - 1));
-            y = canvas.width - 1;
-            break;
-        case 4:
-            x = canvas.width - 1;
-            y = Math.floor(Math.random() * (canvas.width - 1));
-            break;
+    if (!pause) {
+        var check = Math.floor(Math.random() * 4 + 1);
+        var x = 0;
+        var y = 0;
+        switch(check) {
+            case 1:
+                x = Math.floor(Math.random() * (canvas.width - 1));
+                break;
+            case 2:
+                y = Math.floor(Math.random() * (canvas.width - 1));
+                break;
+            case 3:
+                x = Math.floor(Math.random() * (canvas.width - 1));
+                y = canvas.width - 1;
+                break;
+            case 4:
+                x = canvas.width - 1;
+                y = Math.floor(Math.random() * (canvas.width - 1));
+                break;
+        }
+        addEnemy(x, y);
     }
-    addEnemy(x, y);
-    setTimeout(enemySpawnLocation, 1000);
+    var spawnTime = 10 + 1000 /  Math.log(score + 2);
+    setTimeout(enemySpawnLocation, spawnTime);
 }
 
 export function endGame() {
