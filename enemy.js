@@ -25,10 +25,20 @@ class enemy {
 
     draw() {
         ctx.beginPath();
-        ctx.rect(this.x, this.y, 10, 10);
+        ctx.rect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = "#dd2100";
         ctx.fill();
         ctx.closePath();
+    }
+
+    checkAround(newX, newY) {
+        for (var i = 0; i < enemies.length; i++) {
+            var cur = enemies[i];
+            if (this != cur && Math.abs(cur._x - newX) < 5 && Math.abs(cur._y - newY) < 5) {
+                return false;
+            }
+        }
+        return true;
     }
 
     updateLocation() {
@@ -37,24 +47,30 @@ class enemy {
         var newY = this.y;
         canvasLocation[this.x * 2][this.y * 2] = 0;
         if (this.x < userLocation[0]) {
-            newX = this.x + this.speed;
+            if (this.checkAround(this.x + this.speed, this.y)) {
+                newX = this.x + this.speed;
+            }
         } else if (this.x > userLocation[0]) {
-            newX = this.x - this.speed;
+            if (this.checkAround(this.x - this.speed, this.y)) {
+                newX = this.x - this.speed;
+            }
         }
         if (this.y < userLocation[1]) {
-            newY = this.y + this.speed;
+            if (this.checkAround(this.x, this.y + this.speed)) {
+                newY = this.y + this.speed;
+            }
         } else if (this.y > userLocation[1]) {
-            newY = this.y - this.speed;
+            if (this.checkAround(this.x, this.y - this.speed)) {
+                newY = this.y - this.speed;
+            }
         }
 
-        var cur = canvasLocation[newX * 2][newY * 2];
         if (newX == userLocation[0] && newY == userLocation[1]) {
             enemyCollide();
-        } else if (cur == 0) {
-            this.x = newX;
-            this.y = newY;
-        }
-        if (enemyCheck(this)){
+        } 
+        this.x = newX;
+        this.y = newY;
+        if (this.isAlive){
             canvasLocation[this.x * 2][this.y * 2] = this;
         }
     }
