@@ -92,7 +92,7 @@ function bulletCheck(curBullet) {
 }
 
 function bulletLocationUpdate() {
-    for (var i = 0; i < bullets.length; i++) {
+    for (let i = 0; i < bullets.length; i++) {
         bullets[i].updateLocation();
     }
     bullets = bullets.filter(curBullet => bulletCheck(curBullet));

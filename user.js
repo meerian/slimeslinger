@@ -34,7 +34,7 @@ class user {
     }
 
     takeDamage() {
-        var newHit = new Date();
+        let newHit = new Date();
         if ((newHit - this.lastHit) < 1000) { return; }
         if (this.lives == 1) {
             endGame();

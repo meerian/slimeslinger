@@ -32,8 +32,8 @@ class enemy {
     }
 
     checkAround(newX, newY) {
-        for (var i = 0; i < enemies.length; i++) {
-            var cur = enemies[i];
+        for (let i = 0; i < enemies.length; i++) {
+            let cur = enemies[i];
             if (this != cur && Math.abs(cur._x - newX) < 5 && Math.abs(cur._y - newY) < 5) {
                 return false;
             }
@@ -42,9 +42,9 @@ class enemy {
     }
 
     updateLocation() {
-        var userLocation = defaultUser.getLocation();
-        var newX = this.x;
-        var newY = this.y;
+        let userLocation = defaultUser.getLocation();
+        let newX = this.x;
+        let newY = this.y;
         canvasLocation[this.x * 2][this.y * 2] = 0;
         if (this.x < userLocation[0]) {
             if (this.checkAround(this.x + this.speed, this.y)) {
@@ -93,7 +93,7 @@ function enemyCheck(enemy) {
 }
 
 function enemyLocationUpate() {
-    for (var i = 0; i < enemies.length; i++) {
+    for (let i = 0; i < enemies.length; i++) {
         enemies[i].updateLocation();
     }
     enemies = enemies.filter(curEnemy => enemyCheck(curEnemy));

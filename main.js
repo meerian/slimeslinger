@@ -20,8 +20,8 @@ pauseButton.onclick = function() {
 };
 
 function drawAll() {
-    for (var i = 0; i < canvasLocation.length; i++) {
-        for (var j = 0; j < canvasLocation[0].length; j++) {
+    for (let i = 0; i < canvasLocation.length; i++) {
+        for (let j = 0; j < canvasLocation[0].length; j++) {
             if (canvasLocation[i][j] != 0) {
                 canvasLocation[i][j].draw();
             }
@@ -49,9 +49,9 @@ function bulletAutofire() {
 
 function enemySpawnLocation() {
     if (!pause) {
-        var check = Math.floor(Math.random() * 4 + 1);
-        var x = 0;
-        var y = 0;
+        let check = Math.floor(Math.random() * 4 + 1);
+        let x = 0;
+        let y = 0;
         switch(check) {
             case 1:
                 x = Math.floor(Math.random() * (canvas.width - 1));
@@ -70,7 +70,7 @@ function enemySpawnLocation() {
         }
         addEnemy(x, y);
     }
-    var spawnTime = 10 + 1000 /  Math.log(score + 2);
+    let spawnTime = 10 + 1000 /  Math.log(score + 2);
     setTimeout(enemySpawnLocation, spawnTime);
 }
 
