@@ -31,6 +31,7 @@ class enemy {
         ctx.closePath();
     }
 
+    //Checks if enemy's new location collides with a pre-existing one.
     checkAround(newX, newY) {
         for (let i = 0; i < enemies.length; i++) {
             let cur = enemies[i];
@@ -65,12 +66,10 @@ class enemy {
             }
         }
 
-        if (newX == userLocation[0] && newY == userLocation[1]) {
-            enemyCollide();
-        } 
         this.x = newX;
         this.y = newY;
         if (this.isAlive){
+            enemyCollide(this);
             canvasLocation[this.x * 2][this.y * 2] = this;
         }
     }
@@ -99,4 +98,4 @@ function enemyLocationUpate() {
     enemies = enemies.filter(curEnemy => enemyCheck(curEnemy));
 }
 
-export { enemy, getEnemy, enemiesLength, addEnemy, enemyLocationUpate };
+export { enemy, enemies, getEnemy, enemiesLength, addEnemy, enemyLocationUpate };

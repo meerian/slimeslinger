@@ -69,8 +69,8 @@ class bullet {
         this.x += this.dx;
         this.y += this.dy;
         if (bulletCheck(this)) {
-            bulletCollide(this);
             canvasLocation[this.x * 2][this.y * 2] = this;
+            bulletCollide(this);
         }
     }
 }
