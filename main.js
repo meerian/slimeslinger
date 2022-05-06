@@ -1,6 +1,6 @@
-import { addBullet, bulletLocationUpdate } from "./bullet.js";
-import { addEnemy, enemyLocationUpate } from "./enemy.js";
-import { defaultUser,userLocationUpdate } from "./user.js";
+import { addBullet, bulletLocationUpdate, drawBullets } from "./bullet.js";
+import { addEnemy, drawEnemies, enemyLocationUpate } from "./enemy.js";
+import { defaultUser,drawUser,userLocationUpdate } from "./user.js";
 
 var canvas = document.getElementById("myCanvas");
 var scoreboard = document.getElementById("Score");
@@ -20,13 +20,9 @@ pauseButton.onclick = function() {
 };
 
 function drawAll() {
-    for (let i = 0; i < canvasLocation.length; i++) {
-        for (let j = 0; j < canvasLocation[0].length; j++) {
-            if (canvasLocation[i][j] != 0) {
-                canvasLocation[i][j].draw();
-            }
-        }
-    }
+    drawEnemies();
+    drawBullets();
+    drawUser();
 }
 
 function startScore() {
@@ -52,6 +48,7 @@ function enemySpawnLocation() {
         let check = Math.floor(Math.random() * 4 + 1);
         let x = 0;
         let y = 0;
+        //Randomises enemy spawn location
         switch(check) {
             case 1:
                 x = Math.floor(Math.random() * (canvas.width - 1));
@@ -97,9 +94,9 @@ function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height); //clears canvas
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, canvas.width, canvas.height); //colours canvas white
-        drawAll(); //updates all locations
-        drawValue();
-        drawLives();
+        drawAll(); //draws all enemies, bullets and user
+        drawValue(); //display score
+        drawLives(); //display lives
         userLocationUpdate(); //updates user location based on keystrokes
         enemyLocationUpate(); //updates enemy location to next frame
         bulletLocationUpdate(); //updates bullet location to next frame

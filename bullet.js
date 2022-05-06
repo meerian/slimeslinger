@@ -98,4 +98,10 @@ function bulletLocationUpdate() {
     bullets = bullets.filter(curBullet => bulletCheck(curBullet));
 }
 
-export { getBullet, bulletsLength, addBullet, bulletLocationUpdate };
+function drawBullets() {
+    for (let i = 0; i < bullets.length; i++) {
+        bullets[i].draw();
+    }
+}
+
+export { getBullet, bulletsLength, addBullet, bulletLocationUpdate, drawBullets };

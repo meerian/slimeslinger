@@ -118,4 +118,8 @@ function userLocationUpdate() {
     canvasLocation[defaultUser.x][defaultUser.y] = defaultUser;
 }
 
-export { defaultUser, userLocationUpdate };
+function drawUser() {
+    defaultUser.draw();
+}
+
+export { defaultUser, userLocationUpdate, drawUser };

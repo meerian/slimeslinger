@@ -98,4 +98,10 @@ function enemyLocationUpate() {
     enemies = enemies.filter(curEnemy => enemyCheck(curEnemy));
 }
 
-export { enemy, enemies, getEnemy, enemiesLength, addEnemy, enemyLocationUpate };
+function drawEnemies() {
+    for(let i = 0; i < enemies.length; i++) {
+        enemies[i].draw();
+    }
+}
+
+export { enemy, enemies, getEnemy, enemiesLength, addEnemy, enemyLocationUpate, drawEnemies };
