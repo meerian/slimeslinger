@@ -1,5 +1,4 @@
 import { bulletCollide } from "./collisionHandler.js";
-import { canvasLocation } from "./main.js";
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
@@ -46,7 +45,9 @@ class bullet {
         this.x = userX + this.dx;
         this.y = userY + this.dy;
         this.isAlive = true;
-        canvasLocation[this.x * 2][this.y * 2] = this;
+        this.length = 2;
+        this.colour = "#9F2B68";
+        //canvasLocation[this.x * 2][this.y * 2] = this;
     }
     
     get x() { return this._x; }
@@ -58,18 +59,18 @@ class bullet {
 
     draw() {
         ctx.beginPath();
-        ctx.rect(this.x, this.y, 2, 2);
-        ctx.fillStyle = "#00dd29";
+        ctx.rect(this.x, this.y, this.length, this.length);
+        ctx.fillStyle = this.colour;
         ctx.fill();
         ctx.closePath();
     }
 
     updateLocation() {
-        canvasLocation[this.x * 2][this.y * 2] = 0;
+        //canvasLocation[this.x * 2][this.y * 2] = 0;
         this.x += this.dx;
         this.y += this.dy;
         if (bulletCheck(this)) {
-            canvasLocation[this.x * 2][this.y * 2] = this;
+            //canvasLocation[this.x * 2][this.y * 2] = this;
             bulletCollide(this);
         }
     }

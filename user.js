@@ -1,8 +1,9 @@
 import { currentDirection } from "./eventListeners.js";
-import { canvasLocation, endGame } from "./main.js";
+import { endGame } from "./main.js";
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
+var expProgress = document.getElementById("expProgress");
 
 class user {
     constructor() {
@@ -14,6 +15,8 @@ class user {
         this.lives = 3;
         this.lastHit = new Date();
         this.color = "#0095DD";
+        this.exp = 0;
+        this.level = 0;
     }
 
     get direction() { return this._direction; }
@@ -51,6 +54,19 @@ class user {
         var curLocation = [this.x, this.y];
         return curLocation;
     }
+
+    levelUp() {
+        this.level += this.level;
+    }
+
+    gainExperience() {
+        this.exp += 10;
+        if (this.exp == 100) {
+            this.levelUp();
+            this.exp = 0;
+        }
+        expProgress.style.width = this.exp + "%";
+    }
 }
 
 var defaultUser = new user();
@@ -60,7 +76,7 @@ function resetColor() {
 }
 
 function userLocationUpdate() {
-    canvasLocation[defaultUser.x][defaultUser.y] = 0;
+    //canvasLocation[defaultUser.x][defaultUser.y] = 0;
     if (currentDirection.rightPressed) {
         defaultUser.x += defaultUser.speed;
         if (currentDirection.upPressed) {
@@ -115,7 +131,7 @@ function userLocationUpdate() {
             defaultUser.y = defaultUser.radius;
         }
     }
-    canvasLocation[defaultUser.x][defaultUser.y] = defaultUser;
+    //canvasLocation[defaultUser.x][defaultUser.y] = defaultUser;
 }
 
 function drawUser() {
