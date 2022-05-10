@@ -46,6 +46,8 @@ class bullet {
         this.x = userX + this.dx;
         this.y = userY + this.dy;
         this.isAlive = true;
+        this.length = 2;
+        this.colour = "#9F2B68";
         canvasLocation[this.x * 2][this.y * 2] = this;
     }
     
@@ -58,8 +60,8 @@ class bullet {
 
     draw() {
         ctx.beginPath();
-        ctx.rect(this.x, this.y, 2, 2);
-        ctx.fillStyle = "#00dd29";
+        ctx.rect(this.x, this.y, this.length, this.length);
+        ctx.fillStyle = this.colour;
         ctx.fill();
         ctx.closePath();
     }

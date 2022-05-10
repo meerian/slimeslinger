@@ -1,5 +1,6 @@
 import { addBullet, bulletLocationUpdate, drawBullets } from "./bullet.js";
 import { addEnemy, drawEnemies, enemyLocationUpate } from "./enemy.js";
+import { drawExperiences, experienceLocationUpate } from "./experience.js";
 import { defaultUser,drawUser,userLocationUpdate } from "./user.js";
 
 var canvas = document.getElementById("myCanvas");
@@ -23,6 +24,7 @@ function drawAll() {
     drawEnemies();
     drawBullets();
     drawUser();
+    drawExperiences();
 }
 
 function startScore() {
@@ -100,6 +102,7 @@ function draw() {
         userLocationUpdate(); //updates user location based on keystrokes
         enemyLocationUpate(); //updates enemy location to next frame
         bulletLocationUpdate(); //updates bullet location to next frame
+        experienceLocationUpate();
     }
 
     requestAnimationFrame(draw);
