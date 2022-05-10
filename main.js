@@ -11,9 +11,6 @@ var ctx = canvas.getContext("2d");
 var score = 0;
 var pause = true;
 export var canvasLocation = [];
-for (var i = 0; i < canvas.height * 2; i++) {
-    canvasLocation[i] = new Array(1000).fill(0);
-}
 
 pauseButton.onclick = function() {
     pauseButton.innerHTML = "Pause";
@@ -81,7 +78,7 @@ export function endGame() {
 function drawValue() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score:" + score, 8, 20);
+    ctx.fillText("Score:" + defaultUser.exp, 8, 20);
 }
 
 function drawLives() {
@@ -109,6 +106,8 @@ function draw() {
 }
 
 function start() {
+    ctx.canvas.width = 0.8 * window.innerHeight;
+    ctx.canvas.height = 0.8 * window.innerHeight;
     startScore();
     enemySpawnLocation();
     bulletAutofire();

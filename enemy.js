@@ -1,5 +1,4 @@
 import { enemyCollide } from "./collisionHandler.js";
-import { canvasLocation } from "./main.js";
 import { defaultUser } from "./user.js";
 
 var canvas = document.getElementById("myCanvas");
@@ -46,7 +45,7 @@ class enemy {
         let userLocation = defaultUser.getLocation();
         let newX = this.x;
         let newY = this.y;
-        canvasLocation[this.x * 2][this.y * 2] = 0;
+        //canvasLocation[this.x * 2][this.y * 2] = 0;
         if (this.x < userLocation[0]) {
             if (this.checkAround(this.x + this.speed, this.y)) {
                 newX = this.x + this.speed;
@@ -70,7 +69,7 @@ class enemy {
         this.y = newY;
         if (this.isAlive){
             enemyCollide(this);
-            canvasLocation[this.x * 2][this.y * 2] = this;
+            //canvasLocation[this.x * 2][this.y * 2] = this;
         }
     }
 }

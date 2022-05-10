@@ -1,5 +1,4 @@
 import { experienceCollide } from "./collisionHandler.js";
-import { canvasLocation } from "./main.js";
 import { defaultUser } from "./user.js";
 
 var canvas = document.getElementById("myCanvas");
@@ -54,7 +53,7 @@ class experience {
             this.y = newY;
             if (this.isAlive){
                 experienceCollide(this);
-                canvasLocation[this.x * 2][this.y * 2] = this;
+                //canvasLocation[this.x * 2][this.y * 2] = this;
             }
         }
     }
