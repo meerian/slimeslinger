@@ -11,10 +11,10 @@ class enemy {
         this.height = 10
         this.x = x;
         this.y = y;
-        this.colour = "0xDD2100"
         this.speed = 0.5;
         this.isAlive = true;
-        this.graphic = new PIXI.Graphics();
+        this.sprite = new PIXI.Sprite.from('images/redEnemy.png');
+        this.sprite.anchor.set(0.5);
     }
 
     get x() { return this._x; }
@@ -25,11 +25,9 @@ class enemy {
     set isAlive(newStatus) { this._isAlive = newStatus; }
 
     draw() {
-        this.graphic.clear();
-        this.graphic.beginFill(this.colour);
-        this.graphic.drawRect(this.x, this.y, this.width, this.height);
-        this.graphic.endFill();
-        app.stage.addChild(this.graphic);
+        this.sprite.x = this.x;
+        this.sprite.y = this.y;
+        app.stage.addChild(this.sprite);
     }
 
     //Checks if enemy's new location collides with a pre-existing one.

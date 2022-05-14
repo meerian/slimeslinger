@@ -47,8 +47,10 @@ class bullet {
         this.isAlive = true;
         this.width = 2;
         this.height = 2;
-        this.colour = "0x9F2B68";
-        this.graphic = new PIXI.Graphics();
+        this.sprite = new PIXI.Sprite.from('images/bullet.png');
+        this.sprite.x = this.height;
+        this.sprite.y = this.width;
+        this.sprite.anchor.set(0.5);
     }
     
     get x() { return this._x; }
@@ -59,11 +61,9 @@ class bullet {
     set isAlive(newStatus) { this._isAlive = newStatus; }
 
     draw() {
-        this.graphic.clear();
-        this.graphic.beginFill(this.colour);
-        this.graphic.drawRect(this.x, this.y, this.width, this.height);
-        this.graphic.endFill();
-        app.stage.addChild(this.graphic);
+        this.sprite.x = this.x;
+        this.sprite.y = this.y;
+        app.stage.addChild(this.sprite);
     }
 
     updateLocation() {

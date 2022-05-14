@@ -13,10 +13,10 @@ class user {
         this.speed = 2;
         this.lives = 3;
         this.lastHit = new Date();
-        this.colour = "0x0095DD";
         this.exp = 0;
         this.level = 0;
-        this.graphic = new PIXI.Graphics();
+        this.sprite = new PIXI.Sprite(textureNormal);
+        this.sprite.anchor.set(0.5);
     }
 
     get direction() { return this._direction; }
@@ -29,11 +29,9 @@ class user {
     set speed(newSpeed) { this._speed = newSpeed; }
 
     draw() {
-        this.graphic.clear();
-        this.graphic.beginFill(this.colour);
-        this.graphic.drawCircle(this.x, this.y, this.radius);
-        this.graphic.endFill();
-        app.stage.addChild(this.graphic);
+        this.sprite.x = this.x;
+        this.sprite.y = this.y;
+        app.stage.addChild(this.sprite);
     }
 
     takeDamage() {
@@ -44,8 +42,8 @@ class user {
         }
         this.lives--;
         this.lastHit = newHit;
-        this.color = "#99d4f1";
-        setTimeout(resetColor, 1000)
+        toggleInterval = setInterval(toggleSprite, 200);
+        setTimeout(resetHurt, 1000)
     }
 
     hitBorderX() { return this.x + this.radius > canvas.width || this.x - this.radius < 0; }
@@ -71,13 +69,28 @@ class user {
 }
 
 var defaultUser = 0;
+var toggleInterval = 0;
+var textureNormal = PIXI.Texture.from('images/user.png');
+var textureHurt = PIXI.Texture.from('images/user_hurt.png');
 
 function createUser() {
     defaultUser = new user();
 }
 
-function resetColor() {
-    defaultUser.color = "#0095DD";
+function resetHurt() {
+    clearInterval(toggleInterval);
+    if (defaultUser.sprite.texture == textureHurt) {
+        defaultUser.sprite.texture = textureNormal;
+    }
+}
+
+function toggleSprite() {
+    if (defaultUser.sprite.texture == textureNormal) {
+        defaultUser.sprite.texture = textureHurt;
+    } else {
+        defaultUser.sprite.texture = textureNormal;
+    }
+    
 }
 
 function userLocationUpdate() {

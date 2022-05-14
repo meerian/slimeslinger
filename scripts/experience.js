@@ -2,7 +2,6 @@ import { experienceCollide } from "./collisionHandler.js";
 import { defaultUser } from "./user.js";
 import { app } from "./main.js";
 
-var canvas = document.getElementById("myCanvas");
 var experiences = [];
 
 class experience {
@@ -13,16 +12,16 @@ class experience {
         this.speed = 1;
         this.isAlive = true;
         this.tracking = false;
-        this.colour = "0x90EE90";
-        this.graphic = new PIXI.Graphics();
+        this.sprite = new PIXI.Sprite.from('images/exp.png');
+        this.sprite.x = this.height;
+        this.sprite.y = this.width;
+        this.sprite.anchor.set(0.5);
     }
 
     draw() {
-        this.graphic.clear();
-        this.graphic.beginFill(this.colour);
-        this.graphic.drawCircle(this.x, this.y, this.radius);
-        this.graphic.endFill();
-        app.stage.addChild(this.graphic);
+        this.sprite.x = this.x;
+        this.sprite.y = this.y;
+        app.stage.addChild(this.sprite);
     }
 
     // Checks if user is close enough to the experience orb
