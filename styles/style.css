@@ -1,9 +1,9 @@
 body {
-    background-color: lightblue;
+    background-color: #FCFBE4;
   }
   
   h1 {
-    color: darkblue;
+    color: #235823;
     text-align: center;
   }
 
@@ -14,21 +14,21 @@ body {
   }
 
   .Score {
-    color: darkblue;
+    color: #235823;
     position: relative;
     top: 0;
     left: 0;
   }
 
   .Lives {
-    color: darkblue;
+    color: #235823;
     position: relative;
     top: 0;
     right: 0;
   }
 
   .Pause {
-    color: darkblue;
+    color: #235823;
     position: relative;
     top: 50;
     right: 50;
