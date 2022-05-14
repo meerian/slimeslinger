@@ -1,7 +1,7 @@
 import { bulletCollide } from "./collisionHandler.js";
+import { app } from "./main.js";
 
 var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
 var bullets = [];
 
 class bullet {
@@ -45,9 +45,10 @@ class bullet {
         this.x = userX + this.dx;
         this.y = userY + this.dy;
         this.isAlive = true;
-        this.length = 2;
-        this.colour = "#9F2B68";
-        //canvasLocation[this.x * 2][this.y * 2] = this;
+        this.width = 2;
+        this.height = 2;
+        this.colour = "0x9F2B68";
+        this.graphic = new PIXI.Graphics();
     }
     
     get x() { return this._x; }
@@ -58,19 +59,17 @@ class bullet {
     set isAlive(newStatus) { this._isAlive = newStatus; }
 
     draw() {
-        ctx.beginPath();
-        ctx.rect(this.x, this.y, this.length, this.length);
-        ctx.fillStyle = this.colour;
-        ctx.fill();
-        ctx.closePath();
+        this.graphic.clear();
+        this.graphic.beginFill(this.colour);
+        this.graphic.drawRect(this.x, this.y, this.width, this.height);
+        this.graphic.endFill();
+        app.stage.addChild(this.graphic);
     }
 
     updateLocation() {
-        //canvasLocation[this.x * 2][this.y * 2] = 0;
         this.x += this.dx;
         this.y += this.dy;
         if (bulletCheck(this)) {
-            //canvasLocation[this.x * 2][this.y * 2] = this;
             bulletCollide(this);
         }
     }

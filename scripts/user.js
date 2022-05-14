@@ -1,8 +1,7 @@
 import { currentDirection } from "./eventListeners.js";
-import { endGame } from "./main.js";
+import { app, endGame } from "./main.js";
 
 var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
 var expProgress = document.getElementById("expProgress");
 
 class user {
@@ -14,9 +13,10 @@ class user {
         this.speed = 2;
         this.lives = 3;
         this.lastHit = new Date();
-        this.color = "#0095DD";
+        this.colour = "0x0095DD";
         this.exp = 0;
         this.level = 0;
+        this.graphic = new PIXI.Graphics();
     }
 
     get direction() { return this._direction; }
@@ -29,11 +29,11 @@ class user {
     set speed(newSpeed) { this._speed = newSpeed; }
 
     draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.closePath();
+        this.graphic.clear();
+        this.graphic.beginFill(this.colour);
+        this.graphic.drawCircle(this.x, this.y, this.radius);
+        this.graphic.endFill();
+        app.stage.addChild(this.graphic);
     }
 
     takeDamage() {
@@ -66,17 +66,21 @@ class user {
             this.exp = 0;
         }
         expProgress.style.width = this.exp + "%";
+        expProgress.textContent = this.exp + "%";
     }
 }
 
-var defaultUser = new user();
+var defaultUser = 0;
+
+function createUser() {
+    defaultUser = new user();
+}
 
 function resetColor() {
     defaultUser.color = "#0095DD";
 }
 
 function userLocationUpdate() {
-    //canvasLocation[defaultUser.x][defaultUser.y] = 0;
     if (currentDirection.rightPressed) {
         defaultUser.x += defaultUser.speed;
         if (currentDirection.upPressed) {
@@ -131,11 +135,10 @@ function userLocationUpdate() {
             defaultUser.y = defaultUser.radius;
         }
     }
-    //canvasLocation[defaultUser.x][defaultUser.y] = defaultUser;
 }
 
 function drawUser() {
     defaultUser.draw();
 }
 
-export { defaultUser, userLocationUpdate, drawUser };
+export { defaultUser, userLocationUpdate, drawUser, createUser };

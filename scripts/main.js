@@ -1,19 +1,36 @@
 import { addBullet, bulletLocationUpdate, drawBullets } from "./bullet.js";
 import { addEnemy, drawEnemies, enemyLocationUpate } from "./enemy.js";
 import { drawExperiences, experienceLocationUpate } from "./experience.js";
-import { defaultUser,drawUser,userLocationUpdate } from "./user.js";
+import { createUser, defaultUser, drawUser, userLocationUpdate } from "./user.js";
+
+export const app = new PIXI.Application({
+    view: document.getElementById("myCanvas"),
+    backgroundColor: 0xFFFFFF
+});
+app.renderer.resize(0.8 * window.innerHeight, 0.8 * window.innerHeight);
+
+const textStyle = new PIXI.TextStyle({
+    fontFamily: "Arial",
+    fontSize: 16,
+    fill: "0x0095DD"
+})
 
 var canvas = document.getElementById("myCanvas");
 var scoreboard = document.getElementById("Score");
 var lives = document.getElementById("Lives");
 var pauseButton = document.getElementById("Pause");
-var ctx = canvas.getContext("2d");
 var score = 0;
 var pause = true;
 export var canvasLocation = [];
 
-pauseButton.onclick = function() {
+pauseButton.onclick = function () {
     pauseButton.innerHTML = "Pause";
+    if (pause) {
+        app.ticker.start();
+    } else {
+        app.ticker.stop();
+    }
+
     pause = !pause;
 };
 
@@ -48,7 +65,7 @@ function enemySpawnLocation() {
         let x = 0;
         let y = 0;
         //Randomises enemy spawn location
-        switch(check) {
+        switch (check) {
             case 1:
                 x = Math.floor(Math.random() * (canvas.width - 1));
                 break;
@@ -66,7 +83,7 @@ function enemySpawnLocation() {
         }
         addEnemy(x, y);
     }
-    let spawnTime = 10 + 1000 /  Math.log(score + 2);
+    let spawnTime = 10 + 1000 / Math.log(score + 2);
     setTimeout(enemySpawnLocation, spawnTime);
 }
 
@@ -76,42 +93,40 @@ export function endGame() {
 }
 
 function drawValue() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Score:" + defaultUser.exp, 8, 20);
+    let text = new PIXI.Text("Score:" + score, textStyle);
+    text.x = 8;
+    text.y = 20;
+    app.stage.addChild(text);
 }
 
 function drawLives() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
     lives.innerHTML = "Lives: " + defaultUser.lives;
-    ctx.fillText("Lives: " + defaultUser.lives, canvas.width - 65, 20);
+    let text = new PIXI.Text("Lives: " + defaultUser.lives, textStyle);
+    text.x = canvas.width - 65;
+    text.y = 20;
+    app.stage.addChild(text);
 }
 
 function draw() {
-    if (!pause) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height); //clears canvas
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, canvas.width, canvas.height); //colours canvas white
-        drawAll(); //draws all enemies, bullets and user
-        drawValue(); //display score
-        drawLives(); //display lives
-        userLocationUpdate(); //updates user location based on keystrokes
-        enemyLocationUpate(); //updates enemy location to next frame
-        bulletLocationUpdate(); //updates bullet location to next frame
-        experienceLocationUpate();
+    while (app.stage.children[0]) {
+        app.stage.removeChild(app.stage.children[0]);
     }
-
-    requestAnimationFrame(draw);
+    drawAll(); //draws all enemies, bullets and user
+    drawValue(); //display score
+    drawLives(); //display lives
+    userLocationUpdate(); //updates user location based on keystrokes
+    enemyLocationUpate(); //updates enemy location to next frame
+    bulletLocationUpdate(); //updates bullet location to next frame
+    experienceLocationUpate();
 }
 
 function start() {
-    ctx.canvas.width = 0.8 * window.innerHeight;
-    ctx.canvas.height = 0.8 * window.innerHeight;
+    createUser();
     startScore();
     enemySpawnLocation();
     bulletAutofire();
-    draw();
+    app.ticker.stop();
+    app.ticker.add(() => draw());
 }
 
 start();
