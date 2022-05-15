@@ -115,9 +115,6 @@ export function endGame() {
 
 //resets game
 function resetGame() {
-    //app ticker stuff
-    app.ticker.remove(draw);
-
     //resets values
     score = 0;
     pause = true;

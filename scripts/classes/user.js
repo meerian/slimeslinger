@@ -157,6 +157,8 @@ function drawUser() {
 }
 
 function deleteUser() {
+    expProgress.style.width = "0%";
+    expLabel.textContent = "0%";
     defaultUser = 0;
 }
 
