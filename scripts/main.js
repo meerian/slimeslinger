@@ -12,19 +12,21 @@ app.renderer.resize(0.8 * window.innerHeight, 0.8 * window.innerHeight);
 const textStyle = new PIXI.TextStyle({
     fontFamily: "Arial",
     fontSize: 16,
-    fill: "0x0095DD"
+    fill: "0x235823"
 })
 
 var canvas = document.getElementById("myCanvas");
-var scoreboard = document.getElementById("Score");
-var lives = document.getElementById("Lives");
 var pauseButton = document.getElementById("Pause");
 var score = 0;
 var pause = true;
 export var canvasLocation = [];
 
 pauseButton.onclick = function () {
-    pauseButton.innerHTML = "Pause";
+    if (pauseButton.innerHTML == "Pause") {
+        pauseButton.innerHTML = "Start";
+    } else {
+        pauseButton.innerHTML = "Pause";
+    }
     if (pause) {
         app.ticker.start();
     } else {
@@ -44,14 +46,12 @@ function drawAll() {
 function startScore() {
     if (!pause) {
         score = score + 1;
-        scoreboard.innerHTML = "Score: " + score;
     }
     setTimeout(startScore, 1000);
 }
 
 export function updateScore(x) {
     score += x;
-    scoreboard.innerHTML = "Score: " + score;
 }
 
 function bulletAutofire() {
@@ -95,15 +95,14 @@ export function endGame() {
 function drawValue() {
     let text = new PIXI.Text("Score:" + score, textStyle);
     text.x = 8;
-    text.y = 20;
+    text.y = 10;
     app.stage.addChild(text);
 }
 
 function drawLives() {
-    lives.innerHTML = "Lives: " + defaultUser.lives;
     let text = new PIXI.Text("Lives: " + defaultUser.lives, textStyle);
     text.x = canvas.width - 65;
-    text.y = 20;
+    text.y = 10;
     app.stage.addChild(text);
 }
 

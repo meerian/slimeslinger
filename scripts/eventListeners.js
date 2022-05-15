@@ -19,9 +19,11 @@ document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
+        e.preventDefault();
         currentDirection.rightPressed = true;
     }
     if (e.key == "Left" || e.key == "ArrowLeft") {
+        e.preventDefault();
         currentDirection.leftPressed = true;
     }
     if (e.key == "up" || e.key == "ArrowUp") {

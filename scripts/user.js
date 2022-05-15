@@ -3,6 +3,7 @@ import { app, endGame } from "./main.js";
 
 var canvas = document.getElementById("myCanvas");
 var expProgress = document.getElementById("expProgress");
+var expLabel = document.getElementById("expLabel");
 
 class user {
     constructor() {
@@ -64,7 +65,7 @@ class user {
             this.exp = 0;
         }
         expProgress.style.width = this.exp + "%";
-        expProgress.textContent = this.exp + "%";
+        expLabel.textContent = this.exp + "%";
     }
 }
 

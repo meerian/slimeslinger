@@ -29,4 +29,4 @@ Coming soon:
 
 
 ## Tech Stack:
-Made using Javascript with PixiJS API
+Made using Javascript with PixiJS API and Tailwind CSS
