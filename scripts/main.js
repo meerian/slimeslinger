@@ -2,6 +2,7 @@ import { addBullet, bulletLocationUpdate, drawBullets } from "./classes/bullet.j
 import { addEnemy, drawEnemies, enemyLocationUpate } from "./classes/enemy.js";
 import { drawExperiences, experienceLocationUpate } from "./classes/experience.js";
 import { createUser, defaultUser, drawUser, userLocationUpdate } from "./classes/user.js";
+import { levelupHandler } from "./levelupHandler.js";
 
 export const app = new PIXI.Application({
     view: document.getElementById("myCanvas"),
@@ -9,10 +10,12 @@ export const app = new PIXI.Application({
 });
 app.renderer.resize(0.8 * window.innerHeight, 0.8 * window.innerHeight);
 
-const textStyle = new PIXI.TextStyle({
+export const textStyle = new PIXI.TextStyle({
     fontFamily: "Arial",
     fontSize: 16,
-    fill: "0x235823"
+    fill: "0x235823",
+    dropShadow: true,
+    dropShadowAlpha: 0.1
 })
 
 export const gameContainer = new PIXI.Container();
@@ -85,6 +88,19 @@ function enemySpawnLocation() {
     }
     let spawnTime = 10 + 1000 / Math.log(score + 2);
     setTimeout(enemySpawnLocation, spawnTime);
+}
+
+export function levelUp() {
+    pause = true;
+    app.ticker.stop();
+    app.stage.removeChild(gameContainer);
+    levelupHandler();
+}
+
+export function resumeGame() {
+    pause = false;
+    app.ticker.start();
+    app.stage.addChild(gameContainer);
 }
 
 export function endGame() {

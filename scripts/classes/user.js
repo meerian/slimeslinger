@@ -1,10 +1,11 @@
 import { currentDirection } from "../eventListeners.js";
-import { endGame } from "../main.js";
+import { endGame, levelUp } from "../main.js";
 import { object } from "./object.js";
 
 var canvas = document.getElementById("myCanvas");
 var expProgress = document.getElementById("expProgress");
 var expLabel = document.getElementById("expLabel");
+var levelLabel = document.getElementById("levelLabel");
 
 class user extends object {
     constructor() {
@@ -14,7 +15,8 @@ class user extends object {
         this.lives = 3;
         this.lastHit = new Date();
         this.exp = 0;
-        this.level = 0;
+        this.level = 1;
+        this.levelupExp = 5;
         this.firerate = 500;
     }
 
@@ -95,18 +97,17 @@ class user extends object {
         return curLocation;
     }
 
-    levelUp() {
-        this.level += this.level;
-    }
-
     gainExperience() {
-        this.exp += 10;
-        if (this.exp == 100) {
-            this.levelUp();
+        this.exp += 1;
+        if (this.exp == this.levelupExp) {
+            this.level++;
+            this.levelupExp = 5 * this.level;
             this.exp = 0;
+            levelLabel.textContent = "Level " + this.level;
+            levelUp();
         }
-        expProgress.style.width = this.exp + "%";
-        expLabel.textContent = this.exp + "%";
+        expProgress.style.width = (this.exp / this.levelupExp * 100 | 0) + "%";
+        expLabel.textContent = (this.exp / this.levelupExp * 100 | 0) + "%";
     }
 
     addLife() {
