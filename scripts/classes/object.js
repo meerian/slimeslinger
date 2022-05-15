@@ -1,4 +1,4 @@
-import { app } from "../main.js";
+import { gameContainer } from "../main.js";
 
 export class object {
     constructor(x, y, speed, sprite) {
@@ -22,7 +22,7 @@ export class object {
     draw() {
         this.sprite.x = this.x;
         this.sprite.y = this.y;
-        app.stage.addChild(this.sprite);
+        gameContainer.addChild(this.sprite);
     }
 
     updateLocation() {

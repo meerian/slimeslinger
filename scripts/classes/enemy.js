@@ -4,7 +4,7 @@ import { object } from "./object.js";
 
 var enemies = [];
 
-class enemy extends object{
+class enemy extends object {
     constructor(x, y) {
         super(x, y, 0.5, new PIXI.Sprite.from('images/redEnemy.png'));
         this.width = 10
@@ -47,7 +47,7 @@ class enemy extends object{
 
         this.x = newX;
         this.y = newY;
-        if (this.isAlive){
+        if (this.isAlive) {
             enemyCollide(this);
         }
     }
@@ -77,7 +77,7 @@ function enemyLocationUpate() {
 }
 
 function drawEnemies() {
-    for(let i = 0; i < enemies.length; i++) {
+    for (let i = 0; i < enemies.length; i++) {
         enemies[i].draw();
     }
 }

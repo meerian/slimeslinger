@@ -17,7 +17,6 @@ function bulletCollide(bullet) {
     let collided = checkAround(bullet.x, bullet.y);
     if (collided != 0) {
         collided.isAlive = false;
-        //canvasLocation[bullet.x * 2][bullet.y * 2] = 0;
         bullet.isAlive = false;
         addExperience(bullet.x, bullet.y);
         updateScore(1);
