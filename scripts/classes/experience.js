@@ -38,7 +38,7 @@ class experience extends object {
 
             this.x = newX;
             this.y = newY;
-            if (this.isAlive){
+            if (this.isAlive) {
                 experienceCollide(this);
             }
         }
@@ -66,4 +66,4 @@ function drawExperiences() {
     }
 }
 
-export{ addExperience, experienceLocationUpate, drawExperiences }
+export { addExperience, experienceLocationUpate, drawExperiences }

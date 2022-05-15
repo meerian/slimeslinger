@@ -15,6 +15,7 @@ const textStyle = new PIXI.TextStyle({
     fill: "0x235823"
 })
 
+export const gameContainer = new PIXI.Container();
 var canvas = document.getElementById("myCanvas");
 var pauseButton = document.getElementById("Pause");
 var score = 0;
@@ -55,7 +56,7 @@ export function updateScore(x) {
 
 function bulletAutofire() {
     addBullet(defaultUser.x, defaultUser.y, defaultUser.direction);
-    setTimeout(bulletAutofire, 500);
+    setTimeout(bulletAutofire, defaultUser.firerate);
 }
 
 function enemySpawnLocation() {
@@ -95,19 +96,19 @@ function drawValue() {
     let text = new PIXI.Text("Score:" + score, textStyle);
     text.x = 8;
     text.y = 10;
-    app.stage.addChild(text);
+    gameContainer.addChild(text);
 }
 
 function drawLives() {
     let text = new PIXI.Text("Lives: " + defaultUser.lives, textStyle);
     text.x = canvas.width - 65;
     text.y = 10;
-    app.stage.addChild(text);
+    gameContainer.addChild(text);
 }
 
 function draw() {
-    while (app.stage.children[0]) {
-        app.stage.removeChild(app.stage.children[0]);
+    while (gameContainer.children[0]) {
+        gameContainer.removeChild(gameContainer.children[0]);
     }
     drawAll(); //draws all enemies, bullets and user
     drawValue(); //display score
@@ -119,6 +120,7 @@ function draw() {
 }
 
 function start() {
+    app.stage.addChild(gameContainer);
     createUser();
     startScore();
     enemySpawnLocation();

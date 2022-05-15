@@ -15,6 +15,7 @@ class user extends object {
         this.lastHit = new Date();
         this.exp = 0;
         this.level = 0;
+        this.firerate = 500;
     }
 
     updateLocation() {
@@ -106,6 +107,18 @@ class user extends object {
         }
         expProgress.style.width = this.exp + "%";
         expLabel.textContent = this.exp + "%";
+    }
+
+    addLife() {
+        this.lives++;
+    }
+
+    addSpeed() {
+        this.speed = this.speed * 1.1;
+    }
+
+    addFirerate() {
+        this.firerate = this.firerate * 0.9;
     }
 }
 
