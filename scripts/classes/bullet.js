@@ -86,4 +86,8 @@ function drawBullets() {
     }
 }
 
-export { getBullet, bulletsLength, addBullet, bulletLocationUpdate, drawBullets };
+function emptyBullets() {
+    bullets = [];
+}
+
+export { getBullet, bulletsLength, addBullet, bulletLocationUpdate, drawBullets, emptyBullets };

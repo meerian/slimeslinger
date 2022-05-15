@@ -17,6 +17,13 @@ export var currentDirection = new keyPressed();
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
+export function resetKeyPressed() {
+    currentDirection.upPressed = false;
+    currentDirection.leftPressed = false;
+    currentDirection.rightPressed = false;
+    currentDirection.downPressed = false;
+}
+
 function keyDownHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
         e.preventDefault();

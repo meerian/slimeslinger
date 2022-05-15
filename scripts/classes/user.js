@@ -1,5 +1,5 @@
 import { currentDirection } from "../eventListeners.js";
-import { endGame, levelUp } from "../main.js";
+import { app, endGame, levelUp } from "../main.js";
 import { object } from "./object.js";
 
 var canvas = document.getElementById("myCanvas");
@@ -9,7 +9,7 @@ var levelLabel = document.getElementById("levelLabel");
 
 class user extends object {
     constructor() {
-        super(250, 250, 2, new PIXI.Sprite(textureNormal));
+        super(app.renderer.height / 2, app.renderer.width / 2, 2, new PIXI.Sprite(textureNormal));
         this.radius = 5;
         this.direction = "down";
         this.lives = 3;
@@ -156,4 +156,8 @@ function drawUser() {
     defaultUser.draw();
 }
 
-export { defaultUser, userLocationUpdate, drawUser, createUser };
+function deleteUser() {
+    defaultUser = 0;
+}
+
+export { defaultUser, userLocationUpdate, drawUser, createUser, deleteUser };

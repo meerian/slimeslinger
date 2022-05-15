@@ -1,7 +1,8 @@
-import { addBullet, bulletLocationUpdate, drawBullets } from "./classes/bullet.js";
-import { addEnemy, drawEnemies, enemyLocationUpate } from "./classes/enemy.js";
-import { drawExperiences, experienceLocationUpate } from "./classes/experience.js";
-import { createUser, defaultUser, drawUser, userLocationUpdate } from "./classes/user.js";
+import { addBullet, bulletLocationUpdate, drawBullets, emptyBullets } from "./classes/bullet.js";
+import { addEnemy, drawEnemies, emptyEnemies, enemyLocationUpate } from "./classes/enemy.js";
+import { drawExperiences, emptyExperiences, experienceLocationUpate } from "./classes/experience.js";
+import { createUser, defaultUser, deleteUser, drawUser, userLocationUpdate } from "./classes/user.js";
+import { resetKeyPressed } from "./eventListeners.js";
 import { levelupHandler } from "./levelupHandler.js";
 
 export const app = new PIXI.Application({
@@ -23,6 +24,9 @@ var canvas = document.getElementById("myCanvas");
 var pauseButton = document.getElementById("Pause");
 var score = 0;
 var pause = true;
+var scoreTimeout = 0;
+var bulletTimeout = 0;
+var enemyTimeout = 0;
 
 pauseButton.onclick = function () {
     if (pauseButton.innerHTML == "Pause") {
@@ -50,7 +54,7 @@ function startScore() {
     if (!pause) {
         score = score + 1;
     }
-    setTimeout(startScore, 1000);
+    scoreTimeout = setTimeout(startScore, 1000);
 }
 
 export function updateScore(x) {
@@ -59,7 +63,7 @@ export function updateScore(x) {
 
 function bulletAutofire() {
     addBullet(defaultUser.x, defaultUser.y, defaultUser.direction);
-    setTimeout(bulletAutofire, defaultUser.firerate);
+    bulletTimeout = setTimeout(bulletAutofire, defaultUser.firerate);
 }
 
 function enemySpawnLocation() {
@@ -87,7 +91,7 @@ function enemySpawnLocation() {
         addEnemy(x, y);
     }
     let spawnTime = 10 + 1000 / Math.log(score + 2);
-    setTimeout(enemySpawnLocation, spawnTime);
+    enemyTimeout = setTimeout(enemySpawnLocation, spawnTime);
 }
 
 export function levelUp() {
@@ -105,7 +109,39 @@ export function resumeGame() {
 
 export function endGame() {
     alert("YOU LOSE! Your score is: " + score);
-    document.location.reload();
+    resetGame();
+}
+
+
+//resets game
+function resetGame() {
+    //app ticker stuff
+    app.ticker.remove(draw);
+
+    //resets values
+    score = 0;
+    pause = true;
+    resetKeyPressed();
+
+    //clears timeouts
+    clearTimeout(scoreTimeout);
+    clearTimeout(bulletTimeout);
+    clearTimeout(enemyTimeout);
+
+    //removes everything
+    emptyBullets();
+    emptyEnemies();
+    emptyExperiences();
+    deleteUser();
+
+    //empty container
+    while (gameContainer.children[0]) {
+        gameContainer.removeChild(gameContainer.children[0]);
+    }
+    app.stage.removeChild(gameContainer);
+
+    pauseButton.innerHTML = "Start";
+    start();
 }
 
 function drawValue() {
@@ -142,7 +178,8 @@ function start() {
     enemySpawnLocation();
     bulletAutofire();
     app.ticker.stop();
-    app.ticker.add(() => draw());
 }
 
+//Adds the draw function and starts the game
+app.ticker.add(() => draw());
 start();

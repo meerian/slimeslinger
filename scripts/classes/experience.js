@@ -66,4 +66,8 @@ function drawExperiences() {
     }
 }
 
-export { addExperience, experienceLocationUpate, drawExperiences }
+function emptyExperiences() {
+    experiences = [];
+}
+
+export { addExperience, experienceLocationUpate, drawExperiences, emptyExperiences }

@@ -82,4 +82,8 @@ function drawEnemies() {
     }
 }
 
-export { enemy, enemies, getEnemy, enemiesLength, addEnemy, enemyLocationUpate, drawEnemies };
+function emptyEnemies() {
+    enemies = [];
+}
+
+export { enemy, enemies, getEnemy, enemiesLength, addEnemy, enemyLocationUpate, drawEnemies, emptyEnemies };
