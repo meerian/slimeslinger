@@ -1,7 +1,7 @@
-import { addBullet, bulletLocationUpdate, drawBullets } from "./bullet.js";
-import { addEnemy, drawEnemies, enemyLocationUpate } from "./enemy.js";
-import { drawExperiences, experienceLocationUpate } from "./experience.js";
-import { createUser, defaultUser, drawUser, userLocationUpdate } from "./user.js";
+import { addBullet, bulletLocationUpdate, drawBullets } from "./classes/bullet.js";
+import { addEnemy, drawEnemies, enemyLocationUpate } from "./classes/enemy.js";
+import { drawExperiences, experienceLocationUpate } from "./classes/experience.js";
+import { createUser, defaultUser, drawUser, userLocationUpdate } from "./classes/user.js";
 
 export const app = new PIXI.Application({
     view: document.getElementById("myCanvas"),
@@ -19,7 +19,6 @@ var canvas = document.getElementById("myCanvas");
 var pauseButton = document.getElementById("Pause");
 var score = 0;
 var pause = true;
-export var canvasLocation = [];
 
 pauseButton.onclick = function () {
     if (pauseButton.innerHTML == "Pause") {

@@ -1,33 +1,14 @@
-import { enemyCollide } from "./collisionHandler.js";
+import { enemyCollide } from "../collisionHandler.js";
 import { defaultUser } from "./user.js";
-import { app } from "./main.js";
+import { object } from "./object.js";
 
-var canvas = document.getElementById("myCanvas");
 var enemies = [];
 
-class enemy {
+class enemy extends object{
     constructor(x, y) {
+        super(x, y, 0.5, new PIXI.Sprite.from('images/redEnemy.png'));
         this.width = 10
         this.height = 10
-        this.x = x;
-        this.y = y;
-        this.speed = 0.5;
-        this.isAlive = true;
-        this.sprite = new PIXI.Sprite.from('images/redEnemy.png');
-        this.sprite.anchor.set(0.5);
-    }
-
-    get x() { return this._x; }
-    set x(newX) { this._x = newX; }
-    get y() { return this._y; }
-    set y(newY) { this._y = newY; }
-    get isAlive() { return this._isAlive; }
-    set isAlive(newStatus) { this._isAlive = newStatus; }
-
-    draw() {
-        this.sprite.x = this.x;
-        this.sprite.y = this.y;
-        app.stage.addChild(this.sprite);
     }
 
     //Checks if enemy's new location collides with a pre-existing one.

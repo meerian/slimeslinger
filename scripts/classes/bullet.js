@@ -1,13 +1,13 @@
-import { bulletCollide } from "./collisionHandler.js";
-import { app } from "./main.js";
+import { bulletCollide } from "../collisionHandler.js";
+import { object } from "./object.js";
 
 var canvas = document.getElementById("myCanvas");
 var bullets = [];
 
-class bullet {
+class bullet extends object {
     constructor(userX, userY, direction) {
-        this.alive = 1;
-        var speed = 1;
+        let speed = 1;
+        super(userX, userY, speed, new PIXI.Sprite.from('images/bullet.png'));
         switch (direction) {
             case "left":
                 this.dx = -1 * speed;
@@ -44,26 +44,8 @@ class bullet {
         }
         this.x = userX + this.dx;
         this.y = userY + this.dy;
-        this.isAlive = true;
         this.width = 2;
         this.height = 2;
-        this.sprite = new PIXI.Sprite.from('images/bullet.png');
-        this.sprite.x = this.height;
-        this.sprite.y = this.width;
-        this.sprite.anchor.set(0.5);
-    }
-    
-    get x() { return this._x; }
-    set x(newX) { this._x = newX; }
-    get y() { return this._y; }
-    set y(newY) { this._y = newY; }
-    get isAlive() { return this._isAlive; }
-    set isAlive(newStatus) { this._isAlive = newStatus; }
-
-    draw() {
-        this.sprite.x = this.x;
-        this.sprite.y = this.y;
-        app.stage.addChild(this.sprite);
     }
 
     updateLocation() {

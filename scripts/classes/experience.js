@@ -1,27 +1,14 @@
-import { experienceCollide } from "./collisionHandler.js";
+import { experienceCollide } from "../collisionHandler.js";
 import { defaultUser } from "./user.js";
-import { app } from "./main.js";
+import { object } from "./object.js";
 
 var experiences = [];
 
-class experience {
+class experience extends object {
     constructor(x, y) {
+        super(x, y, 1, new PIXI.Sprite.from('images/exp.png'));
         this.radius = 2;
-        this.x = x;
-        this.y = y;
-        this.speed = 1;
-        this.isAlive = true;
         this.tracking = false;
-        this.sprite = new PIXI.Sprite.from('images/exp.png');
-        this.sprite.x = this.height;
-        this.sprite.y = this.width;
-        this.sprite.anchor.set(0.5);
-    }
-
-    draw() {
-        this.sprite.x = this.x;
-        this.sprite.y = this.y;
-        app.stage.addChild(this.sprite);
     }
 
     // Checks if user is close enough to the experience orb

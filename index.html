@@ -79,24 +79,26 @@
         <div class="flex justify-center items-center h-screen space-x-4">
             
             <!-- Canvas and EXP Bar -->
-            <div>
+            <div class="space-y-2">
                 <canvas id="myCanvas" width="500" height="500" class="border-2 border-lincolngreen"></canvas>
-                <div class="flex justify-between mb-1">
-                    <span class="text-base font-medium text-lincolngreen dark:text-white">EXP</span>
-                    <span id= "expLabel" class="text-sm font-medium text-lincolngreen dark:text-white">0%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 border-2 border-black">
-                    <div id= "expProgress" class="bg-lincolngreen h-3 rounded-full" style="width: 0%"></div>
+
+                <div>
+                    <div class="flex justify-between">
+                        <span class="text-base text-lincolngreen dark:text-white font-bold">EXP</span>
+                        <span id= "expLabel" class="text-sm font-semibold text-lincolngreen dark:text-white">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 border-2 border-black">
+                        <div id= "expProgress" class="bg-green-400 h-3 rounded-full" style="width: 0%"></div>
+                    </div>
                 </div>
             </div>
 
             <div class="space-y-4 justify-center items-center">
 
                 <!-- Lives and Score Display -->
-                <div class="px-3 border-double border-lincolngreen border-4">
-                    <p class="text-lincolngreen"> Controls: <br>
-                        Arrow keys to move.
-                    </p>
+                <div class="px-3 border-double border-lincolngreen border-4 bg-beige">
+                    <p class="text-lincolngreen font-semibold"> Controls: </p>
+                    <p class="text-lincolngreen">Arrow keys to move.</p>    
                 </div>
 
                 <!-- Pause Button -->

@@ -1,7 +1,7 @@
 import { updateScore } from "./main.js";
-import { enemies } from "./enemy.js";
-import { defaultUser } from "./user.js"
-import { addExperience } from "./experience.js";
+import { enemies } from "./classes/enemy.js";
+import { defaultUser } from "./classes/user.js"
+import { addExperience } from "./classes/experience.js";
 
 //Handles collision between bullet and enemy.
 function bulletCollide(bullet) {
