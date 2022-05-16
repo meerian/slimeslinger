@@ -1,12 +1,12 @@
-import { defaultUser } from "./classes/user.js";
-import { app, resumeGame, textStyle } from "./main.js";
+import { defaultUser } from "../classes/user.js";
+import { app, pauseGame, resumeGame, textStyle } from "../main.js";
 
 var upgrades = [];
-var canvas = document.getElementById("myCanvas");
 const levelupContainer = new PIXI.Container();
 
 //Builds the level up page
 export function levelupHandler() {
+    pauseGame();
     chooseUpgrades();
     app.stage.addChild(levelupContainer);
 }
@@ -52,7 +52,7 @@ function generateUpgrades() {
         button.endFill();
         button.interactive = true;
         levelupContainer.addChild(button);
-        button.click = function(){		parseUpgrade(cur);	}
+        button.click = function(){	parseUpgrade(cur);	}
 
         //Creates the text
         let upgradeText = new PIXI.Text("", textStyle);
@@ -77,7 +77,7 @@ function generateUpgrades() {
                 levelupContainer.addChild(upgradeText);
                 break;
         }
-        y = y + canvas.width / 6;
+        y = y + app.renderer.width / 6;
     }
 }
 

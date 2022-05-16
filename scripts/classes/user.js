@@ -1,8 +1,9 @@
 import { currentDirection } from "../eventListeners.js";
-import { app, endGame, levelUp } from "../main.js";
+import { app } from "../main.js";
+import { gameoverHandler } from "../pages/gameoverPage.js";
+import { levelupHandler } from "../pages/levelupPage.js";
 import { object } from "./object.js";
 
-var canvas = document.getElementById("myCanvas");
 var expProgress = document.getElementById("expProgress");
 var expLabel = document.getElementById("expLabel");
 var levelLabel = document.getElementById("levelLabel");
@@ -31,7 +32,7 @@ class user extends object {
                 this.direction = "right";
             }
             if (this.hitBorderX()) {
-                this.x = canvas.width - this.radius;
+                this.x = app.renderer.width - this.radius;
             }
         }
         if (currentDirection.leftPressed) {
@@ -58,7 +59,7 @@ class user extends object {
                 this.direction = "down";
             }
             if (this.hitBorderY()) {
-                this.y = canvas.height - this.radius;
+                this.y = app.renderer.height - this.radius;
             }
         }
 
@@ -80,8 +81,9 @@ class user extends object {
     takeDamage() {
         let newHit = new Date();
         if ((newHit - this.lastHit) < 1000) { return; }
-        if (this.lives == 1) {
-            endGame();
+        if (this.lives <= 1) {
+            gameoverHandler();
+            return;
         }
         this.lives--;
         this.lastHit = newHit;
@@ -89,8 +91,8 @@ class user extends object {
         setTimeout(resetHurt, 1000)
     }
 
-    hitBorderX() { return this.x + this.radius > canvas.width || this.x - this.radius < 0; }
-    hitBorderY() { return this.y + this.radius > canvas.height || this.y - this.radius < 0; }
+    hitBorderX() { return this.x + this.radius > app.renderer.width || this.x - this.radius < 0; }
+    hitBorderY() { return this.y + this.radius > app.renderer.height || this.y - this.radius < 0; }
 
     getLocation() {
         var curLocation = [this.x, this.y];
@@ -104,7 +106,7 @@ class user extends object {
             this.levelupExp = 5 * this.level;
             this.exp = 0;
             levelLabel.textContent = "Level " + this.level;
-            levelUp();
+            levelupHandler();
         }
         expProgress.style.width = (this.exp / this.levelupExp * 100 | 0) + "%";
         expLabel.textContent = (this.exp / this.levelupExp * 100 | 0) + "%";

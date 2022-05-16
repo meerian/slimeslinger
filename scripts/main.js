@@ -3,7 +3,7 @@ import { addEnemy, drawEnemies, emptyEnemies, enemyLocationUpate } from "./class
 import { drawExperiences, emptyExperiences, experienceLocationUpate } from "./classes/experience.js";
 import { createUser, defaultUser, deleteUser, drawUser, userLocationUpdate } from "./classes/user.js";
 import { resetKeyPressed } from "./eventListeners.js";
-import { levelupHandler } from "./levelupHandler.js";
+import { levelupHandler } from "./pages/levelupPage.js";
 
 export const app = new PIXI.Application({
     view: document.getElementById("myCanvas"),
@@ -20,9 +20,9 @@ export const textStyle = new PIXI.TextStyle({
 })
 
 export const gameContainer = new PIXI.Container();
-var canvas = document.getElementById("myCanvas");
 var pauseButton = document.getElementById("Pause");
 var score = 0;
+var Highscore = 0;
 var pause = true;
 var scoreTimeout = 0;
 var bulletTimeout = 0;
@@ -48,6 +48,9 @@ function drawAll() {
     drawBullets();
     drawUser();
     drawExperiences();
+    drawScore(); //display score
+    drawLives(); //display lives
+    drawHighscore();
 }
 
 function startScore() {
@@ -59,6 +62,16 @@ function startScore() {
 
 export function updateScore(x) {
     score += x;
+}
+
+export function getScore() {
+    return score;
+}
+
+export function setHighscore(hScore) {
+    if (hScore > Highscore) {
+        Highscore = hScore;
+    }
 }
 
 function bulletAutofire() {
@@ -74,18 +87,18 @@ function enemySpawnLocation() {
         //Randomises enemy spawn location
         switch (check) {
             case 1:
-                x = Math.floor(Math.random() * (canvas.width - 1));
+                x = Math.floor(Math.random() * (app.renderer.width - 1));
                 break;
             case 2:
-                y = Math.floor(Math.random() * (canvas.width - 1));
+                y = Math.floor(Math.random() * (app.renderer.width - 1));
                 break;
             case 3:
-                x = Math.floor(Math.random() * (canvas.width - 1));
-                y = canvas.width - 1;
+                x = Math.floor(Math.random() * (app.renderer.width - 1));
+                y = app.renderer.width - 1;
                 break;
             case 4:
-                x = canvas.width - 1;
-                y = Math.floor(Math.random() * (canvas.width - 1));
+                x = app.renderer.width - 1;
+                y = Math.floor(Math.random() * (app.renderer.width - 1));
                 break;
         }
         addEnemy(x, y);
@@ -94,27 +107,26 @@ function enemySpawnLocation() {
     enemyTimeout = setTimeout(enemySpawnLocation, spawnTime);
 }
 
-export function levelUp() {
+export function pauseGame() {
     pause = true;
     app.ticker.stop();
     app.stage.removeChild(gameContainer);
-    levelupHandler();
+    pauseButton.disabled = true; 
 }
 
 export function resumeGame() {
     pause = false;
     app.ticker.start();
     app.stage.addChild(gameContainer);
+    pauseButton.disabled = false; 
 }
-
-export function endGame() {
-    alert("YOU LOSE! Your score is: " + score);
-    resetGame();
-}
-
 
 //resets game
-function resetGame() {
+export function resetGame() {
+
+    //ticker stuff
+    app.ticker.stop();
+
     //resets values
     score = 0;
     pause = true;
@@ -136,13 +148,18 @@ function resetGame() {
         gameContainer.removeChild(gameContainer.children[0]);
     }
     app.stage.removeChild(gameContainer);
-
-    pauseButton.innerHTML = "Start";
-    start();
+    pauseButton.disabled = true; 
 }
 
-function drawValue() {
+function drawScore() {
     let text = new PIXI.Text("Score:" + score, textStyle);
+    text.x = 8;
+    text.y = 35;
+    gameContainer.addChild(text);
+}
+
+function drawHighscore() {
+    let text = new PIXI.Text("High Score: " + Highscore, textStyle);
     text.x = 8;
     text.y = 10;
     gameContainer.addChild(text);
@@ -150,7 +167,7 @@ function drawValue() {
 
 function drawLives() {
     let text = new PIXI.Text("Lives: " + defaultUser.lives, textStyle);
-    text.x = canvas.width - 65;
+    text.x = app.renderer.width - 65;
     text.y = 10;
     gameContainer.addChild(text);
 }
@@ -159,13 +176,22 @@ function draw() {
     while (gameContainer.children[0]) {
         gameContainer.removeChild(gameContainer.children[0]);
     }
-    drawAll(); //draws all enemies, bullets and user
-    drawValue(); //display score
-    drawLives(); //display lives
+    drawAll(); //draws everything onto the canvas
     userLocationUpdate(); //updates user location based on keystrokes
     enemyLocationUpate(); //updates enemy location to next frame
     bulletLocationUpdate(); //updates bullet location to next frame
     experienceLocationUpate();
+}
+
+export function restart() {
+    app.stage.addChild(gameContainer);
+    createUser();
+    startScore();
+    enemySpawnLocation();
+    bulletAutofire();
+    app.ticker.start();
+    pause = false;
+    pauseButton.disabled = false;
 }
 
 function start() {

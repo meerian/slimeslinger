@@ -1,7 +1,7 @@
 import { bulletCollide } from "../collisionHandler.js";
 import { object } from "./object.js";
+import { app } from "../main.js";
 
-var canvas = document.getElementById("myCanvas");
 var bullets = [];
 
 class bullet extends object {
@@ -70,7 +70,7 @@ function addBullet(userX, userY, direction) {
 }
 
 function bulletCheck(curBullet) {
-    return curBullet.isAlive && !(curBullet.x >= canvas.width || curBullet.x <= 0 || curBullet.y >= canvas.width || curBullet.y <= 0);
+    return curBullet.isAlive && !(curBullet.x >= app.renderer.width || curBullet.x <= 0 || curBullet.y >= app.renderer.width || curBullet.y <= 0);
 }
 
 function bulletLocationUpdate() {
