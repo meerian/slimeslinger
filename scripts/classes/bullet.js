@@ -1,10 +1,10 @@
 import { bulletCollide } from "../collisionHandler.js";
-import { object } from "./object.js";
+import { gameObject } from "./gameObject.js";
 import { app } from "../main.js";
 
 var bullets = [];
 
-class bullet extends object {
+class bullet extends gameObject {
     constructor(userX, userY, direction) {
         let speed = 1;
         super(userX, userY, speed, new PIXI.Sprite.from('images/bullet.png'));

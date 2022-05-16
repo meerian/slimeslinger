@@ -3,6 +3,7 @@ import { addEnemy, drawEnemies, emptyEnemies, enemyLocationUpate } from "./class
 import { drawExperiences, emptyExperiences, experienceLocationUpate } from "./classes/experience.js";
 import { createUser, defaultUser, deleteUser, drawUser, userLocationUpdate } from "./classes/user.js";
 import { resetKeyPressed } from "./eventListeners.js";
+import { startHandler } from "./pages/startPage.js";
 
 export const app = new PIXI.Application({
     view: document.getElementById("myCanvas"),
@@ -23,7 +24,7 @@ const blurFilter = new PIXI.filters.BlurFilter();
 var pauseButton = document.getElementById("Pause");
 var score = 0;
 var Highscore = 0;
-var pause = true;
+var pause = false;
 var scoreTimeout = 0;
 var bulletTimeout = 0;
 var enemyTimeout = 0;
@@ -198,15 +199,15 @@ export function restart() {
     pauseButton.disabled = false;
 }
 
-function start() {
+export function start() {
     app.stage.addChild(gameContainer);
     createUser();
     startScore();
     enemySpawnLocation();
     bulletAutofire();
-    app.ticker.stop();
+    app.ticker.add(() => draw());
+    pauseButton.disabled = false; 
 }
 
 //Adds the draw function and starts the game
-app.ticker.add(() => draw());
-start();
+startHandler();

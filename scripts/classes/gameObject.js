@@ -1,6 +1,6 @@
 import { gameContainer } from "../main.js";
 
-export class object {
+export class gameObject {
     constructor(x, y, speed, sprite) {
         this.x = x;
         this.y = y;

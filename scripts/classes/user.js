@@ -2,13 +2,13 @@ import { currentDirection } from "../eventListeners.js";
 import { app } from "../main.js";
 import { gameoverHandler } from "../pages/gameoverPage.js";
 import { levelupHandler } from "../pages/levelupPage.js";
-import { object } from "./object.js";
+import { gameObject } from "./gameObject.js";
 
 var expProgress = document.getElementById("expProgress");
 var expLabel = document.getElementById("expLabel");
 var levelLabel = document.getElementById("levelLabel");
 
-class user extends object {
+class user extends gameObject {
     constructor() {
         super(app.renderer.height / 2, app.renderer.width / 2, 2, new PIXI.Sprite(textureNormal));
         this.radius = 5;

@@ -1,10 +1,10 @@
 import { experienceCollide } from "../collisionHandler.js";
 import { defaultUser } from "./user.js";
-import { object } from "./object.js";
+import { gameObject } from "./gameObject.js";
 
 var experiences = [];
 
-class experience extends object {
+class experience extends gameObject {
     constructor(x, y) {
         super(x, y, 1, new PIXI.Sprite.from('images/exp.png'));
         this.radius = 2;

@@ -1,12 +1,12 @@
 import { enemyCollide } from "../collisionHandler.js";
 import { defaultUser } from "./user.js";
-import { object } from "./object.js";
+import { gameObject } from "./gameObject.js";
 
 var enemies = [];
 
-class enemy extends object {
+class enemy extends gameObject {
     constructor(x, y) {
-        super(x, y, 0.5, new PIXI.Sprite.from('images/redEnemy.png'));
+        super(x, y, 0.5, new PIXI.Sprite.from('images/red_enemy.png'));
         this.width = 10
         this.height = 10
     }
