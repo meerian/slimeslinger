@@ -3,7 +3,6 @@ import { addEnemy, drawEnemies, emptyEnemies, enemyLocationUpate } from "./class
 import { drawExperiences, emptyExperiences, experienceLocationUpate } from "./classes/experience.js";
 import { createUser, defaultUser, deleteUser, drawUser, userLocationUpdate } from "./classes/user.js";
 import { resetKeyPressed } from "./eventListeners.js";
-import { levelupHandler } from "./pages/levelupPage.js";
 
 export const app = new PIXI.Application({
     view: document.getElementById("myCanvas"),
@@ -20,6 +19,7 @@ export const textStyle = new PIXI.TextStyle({
 })
 
 export const gameContainer = new PIXI.Container();
+const blurFilter = new PIXI.filters.BlurFilter();
 var pauseButton = document.getElementById("Pause");
 var score = 0;
 var Highscore = 0;
@@ -110,14 +110,14 @@ function enemySpawnLocation() {
 export function pauseGame() {
     pause = true;
     app.ticker.stop();
-    app.stage.removeChild(gameContainer);
+    gameContainer.filters = [blurFilter];
     pauseButton.disabled = true; 
 }
 
 export function resumeGame() {
     pause = false;
     app.ticker.start();
-    app.stage.addChild(gameContainer);
+    gameContainer.filters = [];
     pauseButton.disabled = false; 
 }
 
@@ -137,6 +137,11 @@ export function resetGame() {
     clearTimeout(bulletTimeout);
     clearTimeout(enemyTimeout);
 
+    gameContainer.filters = [blurFilter];
+    pauseButton.disabled = true; 
+}
+
+function emptyContainer() {
     //removes everything
     emptyBullets();
     emptyEnemies();
@@ -147,8 +152,7 @@ export function resetGame() {
     while (gameContainer.children[0]) {
         gameContainer.removeChild(gameContainer.children[0]);
     }
-    app.stage.removeChild(gameContainer);
-    pauseButton.disabled = true; 
+    gameContainer.filters = [];
 }
 
 function drawScore() {
@@ -184,7 +188,7 @@ function draw() {
 }
 
 export function restart() {
-    app.stage.addChild(gameContainer);
+    emptyContainer();
     createUser();
     startScore();
     enemySpawnLocation();
