@@ -6,8 +6,9 @@ const logoTexture = PIXI.Texture.from('images/game_logo.png');
 var curPage = 0;
 
 class startPage extends page {
-    constructor() {
+    constructor(hscore) {
         super(startscreenContainer);
+        this.highscore = hscore;
     }
 
     createPage() {
@@ -19,6 +20,12 @@ class startPage extends page {
         logo.anchor.set(0.5);
         this.container.addChild(logo);
     
+        //create highscore
+        let highscoreText = new PIXI.Text("High Score: " + this.highscore, textStyle);
+        highscoreText.x = 8;
+        highscoreText.y = 10;
+        this.container.addChild(highscoreText);
+
         //Create start button
         let button = new PIXI.Graphics();
         button.lineStyle(2, 0x235823, 1);
@@ -38,8 +45,8 @@ class startPage extends page {
     }
 }
 
-export function startHandler() {
-    curPage = new startPage();
+export function startHandler(hScore) {
+    curPage = new startPage(hScore);
     curPage.createPage();
     curPage.stage();
 }

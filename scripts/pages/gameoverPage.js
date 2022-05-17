@@ -36,7 +36,7 @@ class gameoverPage extends page {
         button.click = function () { restartGame(); };
         this.container.addChild(button);
 
-        let restartText = new PIXI.Text("Restart", textStyle);
+        let restartText = new PIXI.Text("Back to start", textStyle);
         restartText.anchor.set(0.5);
         restartText.x = app.renderer.height / 2;
         restartText.y = restartY;

@@ -9,7 +9,7 @@ export const app = new PIXI.Application({
     view: document.getElementById("myCanvas"),
     backgroundColor: 0xFFFFFF
 });
-app.renderer.resize(0.8 * window.innerHeight, 0.8 * window.innerHeight);
+app.renderer.resize(1000, 1000);
 
 export const textStyle = new PIXI.TextStyle({
     fontFamily: "Arial",
@@ -21,6 +21,7 @@ export const textStyle = new PIXI.TextStyle({
 
 export const gameContainer = new PIXI.Container();
 const blurFilter = new PIXI.filters.BlurFilter();
+var ticker = new PIXI.Ticker();
 var pauseButton = document.getElementById("Pause");
 var score = 0;
 var Highscore = 0;
@@ -36,9 +37,9 @@ pauseButton.onclick = function () {
         pauseButton.innerHTML = "Pause";
     }
     if (pause) {
-        app.ticker.start();
+        ticker.start();
     } else {
-        app.ticker.stop();
+        ticker.stop();
     }
 
     pause = !pause;
@@ -52,6 +53,11 @@ function drawAll() {
     drawScore(); //display score
     drawLives(); //display lives
     drawHighscore();
+}
+
+function resetTicker() {
+    ticker.destroy();
+    ticker = new PIXI.Ticker();
 }
 
 function startScore() {
@@ -88,18 +94,18 @@ function enemySpawnLocation() {
         //Randomises enemy spawn location
         switch (check) {
             case 1:
-                x = Math.floor(Math.random() * (app.renderer.width - 1));
+                x = Math.floor(Math.random() * (app.renderer.width));
                 break;
             case 2:
-                y = Math.floor(Math.random() * (app.renderer.width - 1));
+                y = Math.floor(Math.random() * (app.renderer.width));
                 break;
             case 3:
-                x = Math.floor(Math.random() * (app.renderer.width - 1));
-                y = app.renderer.width - 1;
+                x = Math.floor(Math.random() * (app.renderer.width));
+                y = app.renderer.width;
                 break;
             case 4:
-                x = app.renderer.width - 1;
-                y = Math.floor(Math.random() * (app.renderer.width - 1));
+                x = app.renderer.width;
+                y = Math.floor(Math.random() * (app.renderer.width));
                 break;
         }
         addEnemy(x, y);
@@ -108,16 +114,18 @@ function enemySpawnLocation() {
     enemyTimeout = setTimeout(enemySpawnLocation, spawnTime);
 }
 
+//Called on level up
 export function pauseGame() {
     pause = true;
-    app.ticker.stop();
+    ticker.stop();
     gameContainer.filters = [blurFilter];
     pauseButton.disabled = true; 
 }
 
+//Called after level up option chosen
 export function resumeGame() {
     pause = false;
-    app.ticker.start();
+    ticker.start();
     gameContainer.filters = [];
     pauseButton.disabled = false; 
 }
@@ -126,7 +134,7 @@ export function resumeGame() {
 export function resetGame() {
 
     //ticker stuff
-    app.ticker.stop();
+    ticker.stop();
 
     //resets values
     score = 0;
@@ -190,13 +198,7 @@ function draw() {
 
 export function restart() {
     emptyContainer();
-    createUser();
-    startScore();
-    enemySpawnLocation();
-    bulletAutofire();
-    app.ticker.start();
-    pause = false;
-    pauseButton.disabled = false;
+    startHandler(Highscore);
 }
 
 export function start() {
@@ -205,9 +207,12 @@ export function start() {
     startScore();
     enemySpawnLocation();
     bulletAutofire();
-    app.ticker.add(() => draw());
+    resetTicker();
+    ticker.add(() => draw());
+    ticker.start();
+    pause = false;
     pauseButton.disabled = false; 
 }
 
 //Adds the draw function and starts the game
-startHandler();
+startHandler(Highscore);
