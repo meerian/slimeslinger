@@ -1,14 +1,20 @@
 import { experienceCollide } from "../collisionHandler.js";
 import { defaultUser } from "./user.js";
-import { gameObject } from "./gameObject.js";
+import { game } from "../pages/gamePage.js";
 
-var experiences = [];
+// -------------------------------------------------------------------------------
 
-class experience extends gameObject {
+class experience  extends gameObject {
     constructor(x, y) {
-        super(x, y, 1, new PIXI.Sprite.from('images/exp.png'));
-        this.radius = 2;
+        super(x, y, expVal.speed, new PIXI.Sprite.from(expVal.texture));
+        this.radius = expVal.radius;
         this.tracking = false;
+    }
+
+    draw() {
+        this.sprite.x = this.x;
+        this.sprite.y = this.y;
+        game.container.addChild(this.sprite);
     }
 
     // Checks if user is close enough to the experience orb
@@ -38,36 +44,44 @@ class experience extends gameObject {
 
             this.x = newX;
             this.y = newY;
-            if (this.isAlive) {
+            if (this.experienceCheck()) {
                 experienceCollide(this);
             }
         }
     }
+
+    experienceCheck() {
+        return this.isAlive;
+    }
 }
 
-function addExperience(x, y) {
+// -------------------------------------------------------------------------------
+
+//Variables
+
+var experiences = [];
+
+// -------------------------------------------------------------------------------
+
+//Public methods
+export function addExperience(x, y) {
     experiences.push(new experience(x, y));
 }
 
-function experienceCheck(experience) {
-    return experience.isAlive;
-}
 
-function experienceLocationUpate() {
+export function experienceLocationUpate() {
     for (let i = 0; i < experiences.length; i++) {
         experiences[i].updateLocation();
     }
-    experiences = experiences.filter(curExperience => experienceCheck(curExperience));
+    experiences = experiences.filter(curExperience => curExperience.experienceCheck());
 }
 
-function drawExperiences() {
+export function drawExperiences(container) {
     for (let i = 0; i < experiences.length; i++) {
-        experiences[i].draw();
+        experiences[i].draw(container);
     }
 }
 
-function emptyExperiences() {
+export function emptyExperiences() {
     experiences = [];
 }
-
-export { addExperience, experienceLocationUpate, drawExperiences, emptyExperiences }

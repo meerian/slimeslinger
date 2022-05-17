@@ -1,8 +1,6 @@
-import { app, getScore, resetGame, restart, setHighscore, textStyle } from "../main.js";
-import { page } from "./page.js";
+import { resetGame, restart } from "../gameplayHandler.js";
 
-const gameoverContainer = new PIXI.Container();
-var curPage = 0;
+// -------------------------------------------------------------------------------
 
 class gameoverPage extends page {
     constructor(score) {
@@ -44,13 +42,19 @@ class gameoverPage extends page {
     }
 }
 
+// -------------------------------------------------------------------------------
+
+//Variables
+const gameoverContainer = new PIXI.Container();
+var curPage = 0;
+
+// -------------------------------------------------------------------------------
+
 export function gameoverHandler() {
-    let score = getScore();
-    resetGame();
     setHighscore(score);
     curPage = new gameoverPage(score);
-    curPage.createPage();
-    curPage.stage();
+    resetGame();
+    curPage.init();
 }
 
 function restartGame() {

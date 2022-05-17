@@ -1,14 +1,13 @@
 import { enemyCollide } from "../collisionHandler.js";
 import { defaultUser } from "./user.js";
-import { gameObject } from "./gameObject.js";
 
-var enemies = [];
+// -------------------------------------------------------------------------------
 
 class enemy extends gameObject {
     constructor(x, y) {
-        super(x, y, 0.5, new PIXI.Sprite.from('images/red_enemy.png'));
-        this.width = 10
-        this.height = 10
+        super(x, y, enemyVal.speed, new PIXI.Sprite.from(enemyVal.textureRedEnemy));
+        this.width = enemyVal.width;
+        this.height = enemyVal.height;
     }
 
     //Checks if enemy's new location collides with a pre-existing one.
@@ -47,43 +46,41 @@ class enemy extends gameObject {
 
         this.x = newX;
         this.y = newY;
-        if (this.isAlive) {
+        if (this.enemyCheck()) {
             enemyCollide(this);
         }
     }
+
+    enemyCheck() {
+        return this.isAlive;
+    }
 }
 
-function getEnemy(i) {
-    return enemies[i];
-}
+// -------------------------------------------------------------------------------
 
-function addEnemy(x, y) {
+//Variables
+export var enemies = [];
+
+// -------------------------------------------------------------------------------
+
+//Public methods
+export function addEnemy(x, y) {
     enemies.push(new enemy(x, y));
 }
 
-function enemiesLength() {
-    return enemies.length;
-}
-
-function enemyCheck(enemy) {
-    return enemy.isAlive;
-}
-
-function enemyLocationUpate() {
+export function enemyLocationUpate() {
     for (let i = 0; i < enemies.length; i++) {
         enemies[i].updateLocation();
     }
-    enemies = enemies.filter(curEnemy => enemyCheck(curEnemy));
+    enemies = enemies.filter(curEnemy => curEnemy.enemyCheck());
 }
 
-function drawEnemies() {
+export function drawEnemies(container) {
     for (let i = 0; i < enemies.length; i++) {
-        enemies[i].draw();
+        enemies[i].draw(container);
     }
 }
 
-function emptyEnemies() {
+export function emptyEnemies() {
     enemies = [];
 }
-
-export { enemy, enemies, getEnemy, enemiesLength, addEnemy, enemyLocationUpate, drawEnemies, emptyEnemies };

@@ -1,19 +1,15 @@
 import { currentDirection } from "../eventListeners.js";
-import { app } from "../main.js";
 import { gameoverHandler } from "../pages/gameoverPage.js";
 import { levelupHandler } from "../pages/levelupPage.js";
-import { gameObject } from "./gameObject.js";
 
-var expProgress = document.getElementById("expProgress");
-var expLabel = document.getElementById("expLabel");
-var levelLabel = document.getElementById("levelLabel");
+// -------------------------------------------------------------------------------
 
 class user extends gameObject {
     constructor() {
-        super(app.renderer.height / 2, app.renderer.width / 2, 2, new PIXI.Sprite(textureNormal));
-        this.radius = 5;
+        super(userVal.startX, userVal.startY, userVal.speed, new PIXI.Sprite(userVal.textureNormal));
+        this.radius = userVal.radius;
         this.direction = "down";
-        this.lives = 3;
+        this.lives = userVal.lives;
         this.lastHit = new Date();
         this.exp = 0;
         this.level = 1;
@@ -125,43 +121,51 @@ class user extends gameObject {
     }
 }
 
-var defaultUser = 0;
+// -------------------------------------------------------------------------------
+
+//Variables
+var expProgress = document.getElementById("expProgress");
+var expLabel = document.getElementById("expLabel");
+var levelLabel = document.getElementById("levelLabel");
+export var defaultUser = 0;
 var toggleInterval = 0;
-var textureNormal = PIXI.Texture.from('images/user.png');
-var textureHurt = PIXI.Texture.from('images/user_hurt.png');
 
-function createUser() {
-    defaultUser = new user();
-}
+// -------------------------------------------------------------------------------
 
+//Private methods
 function resetHurt() {
     clearInterval(toggleInterval);
-    if (defaultUser.sprite.texture == textureHurt) {
-        defaultUser.sprite.texture = textureNormal;
+    if (defaultUser.sprite.texture == userVal.textureHurt) {
+        defaultUser.sprite.texture = userVal.textureNormal;
     }
 }
 
 function toggleSprite() {
-    if (defaultUser.sprite.texture == textureNormal) {
-        defaultUser.sprite.texture = textureHurt;
+    if (defaultUser.sprite.texture == userVal.textureNormal) {
+        defaultUser.sprite.texture = userVal.textureHurt;
     } else {
-        defaultUser.sprite.texture = textureNormal;
+        defaultUser.sprite.texture = userVal.textureNormal;
     }
 
 }
 
-function userLocationUpdate() {
+// -------------------------------------------------------------------------------
+
+//Public methods
+export function addUser() {
+    defaultUser = new user();
+}
+
+export function userLocationUpdate() {
     defaultUser.updateLocation();
 }
 
-function drawUser() {
-    defaultUser.draw();
+export function drawUser(container) {
+    defaultUser.draw(container);
 }
 
-function deleteUser() {
+export function emptyUser() {
     expProgress.style.width = "0%";
     expLabel.textContent = "0%";
     defaultUser = 0;
 }
-
-export { defaultUser, userLocationUpdate, drawUser, createUser, deleteUser };

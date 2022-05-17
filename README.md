@@ -1,16 +1,10 @@
 # Shooter
 
->_"This is a temporary name."_ - Wise Man
+![Shooter Logo](/images/game_logo.png "Shooter Logo")
 
 This is a project named _Shooter_, a javascript game based off autoshooters. 
-   ```
-░██████╗██╗░░██╗░█████╗░░█████╗░████████╗███████╗██████╗░
-██╔════╝██║░░██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗
-╚█████╗░███████║██║░░██║██║░░██║░░░██║░░░█████╗░░██████╔╝
-░╚═══██╗██╔══██║██║░░██║██║░░██║░░░██║░░░██╔══╝░░██╔══██╗
-██████╔╝██║░░██║╚█████╔╝╚█████╔╝░░░██║░░░███████╗██║░░██║
-╚═════╝░╚═╝░░╚═╝░╚════╝░░╚════╝░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝
-   ```
+
+>_"This is a temporary name."_ - Wise Man
 
 ## Features
 Current features include:

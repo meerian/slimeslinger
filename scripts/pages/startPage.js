@@ -1,9 +1,6 @@
-import { app, start, textStyle } from "../main.js";
-import { page } from "./page.js";
+import { start } from "../gameplayHandler.js";
 
-const startscreenContainer = new PIXI.Container();
-const logoTexture = PIXI.Texture.from('images/game_logo.png');
-var curPage = 0;
+// -------------------------------------------------------------------------------
 
 class startPage extends page {
     constructor(hscore) {
@@ -21,10 +18,7 @@ class startPage extends page {
         this.container.addChild(logo);
     
         //create highscore
-        let highscoreText = new PIXI.Text("High Score: " + this.highscore, textStyle);
-        highscoreText.x = 8;
-        highscoreText.y = 10;
-        this.container.addChild(highscoreText);
+        drawText(new PIXI.Text("High Score: " + Highscore, textStyle), 8, 10, startscreenContainer);
 
         //Create start button
         let button = new PIXI.Graphics();
@@ -45,10 +39,19 @@ class startPage extends page {
     }
 }
 
+// -------------------------------------------------------------------------------
+
+//Variables
+const startscreenContainer = new PIXI.Container();
+const logoTexture = PIXI.Texture.from('images/game_logo.png');
+var curPage = 0;
+
+
+// -------------------------------------------------------------------------------
+
 export function startHandler(hScore) {
     curPage = new startPage(hScore);
-    curPage.createPage();
-    curPage.stage();
+    curPage.init();
 }
 
 function startGame() {

@@ -1,15 +1,18 @@
-import { defaultUser } from "../classes/user.js";
-import { app, pauseGame, resumeGame, textStyle } from "../main.js";
-import { page } from "./page.js";
+import { defaultUser } from "../gameObjects/user.js";
+import { pauseGame, resumeGame } from "../gameplayHandler.js";
 
-const upgrades = [];
-const levelupContainer = new PIXI.Container();
-var curPage = 0;
+// -------------------------------------------------------------------------------
 
 class levelupPage extends page {
     constructor() {
         super(levelupContainer);
         this.upgrades = [];
+    }
+
+    init() {
+        curPage.chooseUpgrades();
+        curPage.createPage();
+        curPage.stage();
     }
 
     //Randomly chooses 3 upgrades
@@ -86,12 +89,18 @@ class levelupPage extends page {
     }
 }
 
+// -------------------------------------------------------------------------------
+
+//Variables
+const levelupContainer = new PIXI.Container();
+var curPage = 0;
+
+// -------------------------------------------------------------------------------
+
 export function levelupHandler() {
     pauseGame();
     curPage = new levelupPage();
-    curPage.chooseUpgrades();
-    curPage.createPage();
-    curPage.stage();
+    curPage.init();
 }
 
 //Parse upgrade and apply based on choice selected
