@@ -1,5 +1,4 @@
-import { enemyCollide } from "../collisionHandler.js";
-import { defaultUser } from "./user.js";
+import { enemyCollide } from "../handlers/collisionHandler.js";
 
 // -------------------------------------------------------------------------------
 
@@ -22,7 +21,7 @@ class enemy extends gameObject {
     }
 
     updateLocation() {
-        let userLocation = defaultUser.getLocation();
+        let userLocation = player.getLocation();
         let newX = this.x;
         let newY = this.y;
         if (this.x < userLocation[0]) {

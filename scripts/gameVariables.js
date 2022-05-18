@@ -57,8 +57,32 @@ pauseButton.onclick = function () {
 
 // -------------------------------------------------------------------------------
 
+//User reference and functions
+var player = 0;
+
+function resetHurt() {
+    clearInterval(toggleInterval);
+    if (player.sprite.texture == userVal.textureHurt) {
+        player.sprite.texture = userVal.textureNormal;
+    }
+}
+
+function toggleSprite() {
+    if (player.sprite.texture == userVal.textureNormal) {
+        player.sprite.texture = userVal.textureHurt;
+    } else {
+        player.sprite.texture = userVal.textureNormal;
+    }
+
+}
+
+// -------------------------------------------------------------------------------
+
 //timeout function reference for bulletTimeout
 var bulletTimeout = 0;
 
 //timeout function reference for enemyTimeout
 var enemyTimeout = 0;
+
+//interval function reference for toggleSprite
+var toggleInterval = 0;

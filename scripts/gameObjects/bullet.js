@@ -1,4 +1,4 @@
-import { bulletCollide } from "../collisionHandler.js";
+import { bulletCollide } from "../handlers/collisionHandler.js";
 
 // -------------------------------------------------------------------------------
 

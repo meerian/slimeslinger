@@ -1,10 +1,10 @@
-import { addBullet, bulletLocationUpdate } from "./gameObjects/bullet.js";
-import { addEnemy, enemyLocationUpate } from "./gameObjects/enemy.js";
-import { experienceLocationUpate } from "./gameObjects/experience.js";
-import { addUser, userLocationUpdate, defaultUser } from "./gameObjects/user.js";
-import { resetKeyPressed } from "./eventListeners.js";
-import { startHandler } from "./pages/startPage.js";
-import { game } from "./pages/gamePage.js";
+import { addBullet, bulletLocationUpdate } from "../gameObjects/bullet.js";
+import { addEnemy, enemyLocationUpate } from "../gameObjects/enemy.js";
+import { experienceLocationUpate } from "../gameObjects/experience.js";
+import { addUser, userLocationUpdate } from "../gameObjects/user.js";
+import { resetKeyPressed } from "../eventListeners.js";
+import { startHandler } from "../pages/startPage.js";
+import { game } from "../pages/gamePage.js";
 
 // -------------------------------------------------------------------------------
 
@@ -12,8 +12,8 @@ import { game } from "./pages/gamePage.js";
 
 //Handles bullet firing
 function bulletAutofire() {
-    addBullet(defaultUser.x, defaultUser.y, defaultUser.direction);
-    bulletTimeout = setTimeout(bulletAutofire, defaultUser.firerate);
+    addBullet(player.x, player.y, player.direction);
+    bulletTimeout = setTimeout(bulletAutofire, player.firerate);
 }
 
 //Handles enemy spawning

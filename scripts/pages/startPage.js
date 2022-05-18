@@ -1,4 +1,4 @@
-import { start } from "../gameplayHandler.js";
+import { start } from "../handlers/gameplayHandler.js";
 
 // -------------------------------------------------------------------------------
 
@@ -18,7 +18,7 @@ class startPage extends page {
         this.container.addChild(logo);
     
         //create highscore
-        drawText(new PIXI.Text("High Score: " + Highscore, textStyle), 8, 10, startscreenContainer);
+        drawText(new PIXI.Text("High Score: " + Highscore, textStyle), 55, 15, startscreenContainer);
 
         //Create start button
         let button = new PIXI.Graphics();
@@ -31,11 +31,7 @@ class startPage extends page {
         this.container.addChild(button);
     
         //Create start text
-        let startText = new PIXI.Text("Start!", textStyle);
-        startText.anchor.set(0.5);
-        startText.x = app.renderer.width / 2;
-        startText.y = app.renderer.height / 2;
-        this.container.addChild(startText);
+        drawText(new PIXI.Text("Start!", textStyle), app.renderer.width / 2, app.renderer.height / 2, startscreenContainer);
     }
 }
 

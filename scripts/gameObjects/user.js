@@ -1,6 +1,7 @@
 import { currentDirection } from "../eventListeners.js";
 import { gameoverHandler } from "../pages/gameoverPage.js";
 import { levelupHandler } from "../pages/levelupPage.js";
+import { relicHandler } from "../pages/relicPage.js"
 
 // -------------------------------------------------------------------------------
 
@@ -110,7 +111,8 @@ class user extends gameObject {
             this.levelupExp = 5 * this.level;
             this.exp = 0;
             levelLabel.textContent = "Level " + this.level;
-            levelupHandler();
+            //levelupHandler();
+            relicHandler();
         }
         expProgress.style.width = (this.exp / this.levelupExp * 100 | 0) + "%";
         expLabel.textContent = (this.exp / this.levelupExp * 100 | 0) + "%";
@@ -135,45 +137,24 @@ class user extends gameObject {
 var expProgress = document.getElementById("expProgress");
 var expLabel = document.getElementById("expLabel");
 var levelLabel = document.getElementById("levelLabel");
-export var defaultUser = 0;
-var toggleInterval = 0;
-
-// -------------------------------------------------------------------------------
-
-//Private methods
-function resetHurt() {
-    clearInterval(toggleInterval);
-    if (defaultUser.sprite.texture == userVal.textureHurt) {
-        defaultUser.sprite.texture = userVal.textureNormal;
-    }
-}
-
-function toggleSprite() {
-    if (defaultUser.sprite.texture == userVal.textureNormal) {
-        defaultUser.sprite.texture = userVal.textureHurt;
-    } else {
-        defaultUser.sprite.texture = userVal.textureNormal;
-    }
-
-}
 
 // -------------------------------------------------------------------------------
 
 //Public methods
 export function addUser() {
-    defaultUser = new user();
+    player = new user();
 }
 
 export function userLocationUpdate() {
-    defaultUser.updateLocation();
+    player.updateLocation();
 }
 
 export function drawUser(container) {
-    defaultUser.draw(container);
+    player.draw(container);
 }
 
 export function emptyUser() {
     expProgress.style.width = "0%";
     expLabel.textContent = "0%";
-    defaultUser = 0;
+    player = 0;
 }

@@ -1,7 +1,7 @@
 import { drawBullets, emptyBullets } from "../gameObjects/bullet.js";
 import { drawEnemies, emptyEnemies} from "../gameObjects/enemy.js";
 import { drawExperiences, emptyExperiences } from "../gameObjects/experience.js";
-import { drawUser, emptyUser, defaultUser } from "../gameObjects/user.js";
+import { drawUser, emptyUser } from "../gameObjects/user.js";
 
 // -------------------------------------------------------------------------------
 
@@ -17,13 +17,13 @@ class gamePage extends page {
         drawExperiences(gameContainer);
 
         //display score
-        drawText(new PIXI.Text("Score:" + score, textStyle), 8, 35, gameContainer);
+        drawText(new PIXI.Text("Score:" + score, textStyle), 35, 40, gameContainer);
 
         //display highscore
-        drawText(new PIXI.Text("High Score: " + Highscore, textStyle), 8, 10, gameContainer);
+        drawText(new PIXI.Text("High Score: " + Highscore, textStyle), 55, 15, gameContainer);
 
         //display lives
-        drawText(new PIXI.Text("Lives: " + defaultUser.lives, textStyle), app.renderer.width - 65, 10, gameContainer);
+        drawText(new PIXI.Text("Lives: " + player.lives, textStyle), app.renderer.width - 30, 15, gameContainer);
     }
 
     cleanup() {

@@ -1,5 +1,4 @@
-import { defaultUser } from "../gameObjects/user.js";
-import { pauseGame, resumeGame } from "../gameplayHandler.js";
+import { pauseGame, resumeGame } from "../handlers/gameplayHandler.js";
 
 // -------------------------------------------------------------------------------
 
@@ -46,6 +45,7 @@ class levelupPage extends page {
     }
 
     createPage() {
+        this.container.filters = [dropShadowFilter];
         let x = app.renderer.height / 2;
         let y = app.renderer.width / 3;
         while (this.upgrades[0]) {
@@ -62,26 +62,15 @@ class levelupPage extends page {
             this.container.addChild(button);
 
             //Creates the text
-            let upgradeText = new PIXI.Text("", textStyle);
-            upgradeText.anchor.set(0.5);
             switch (cur) {
                 case "LIFE":
-                    upgradeText.text = "gain 1 health";
-                    upgradeText.x = x;
-                    upgradeText.y = y;
-                    this.container.addChild(upgradeText);
+                    drawText(new PIXI.Text("gain 1 health", textStyle), x, y, levelupContainer);
                     break;
                 case "SPEED":
-                    upgradeText.text = "increase your speed";
-                    upgradeText.x = x;
-                    upgradeText.y = y;
-                    this.container.addChild(upgradeText);
+                    drawText(new PIXI.Text("increase your speed", textStyle), x, y, levelupContainer);
                     break;
                 case "FIRERATE":
-                    upgradeText.text = "increase your firerate";
-                    upgradeText.x = x;
-                    upgradeText.y = y;
-                    this.container.addChild(upgradeText);
+                    drawText(new PIXI.Text("increase your firerate", textStyle), x, y, levelupContainer);
                     break;
             }
             y = y + app.renderer.width / 6;
@@ -107,13 +96,13 @@ export function levelupHandler() {
 function parseUpgrade(str) {
     switch (str) {
         case "LIFE":
-            defaultUser.addLife();
+            player.addLife();
             break;
         case "SPEED":
-            defaultUser.addSpeed();
+            player.addSpeed();
             break;
         case "FIRERATE":
-            defaultUser.addFirerate();
+            player.addFirerate();
             break;
     }
     curPage.cleanup();
