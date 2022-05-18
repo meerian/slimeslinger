@@ -1,7 +1,7 @@
 //Main application
 const app = new PIXI.Application({
     view: document.getElementById("myCanvas"),
-    backgroundColor: 0xFFFFFF
+    backgroundColor: 0xB9D980
 });
 app.renderer.resize(1000, 1000);
 
@@ -30,7 +30,8 @@ const userVal = {
     startX: 500,
     startY: 500,
     speed: 1,
-    radius: 5,
+    width: 20,
+    height: 20,
     textureNormal: PIXI.Texture.from('images/user.png'),
     textureHurt: PIXI.Texture.from('images/user_hurt.png'),
     lives: 3,
@@ -38,24 +39,25 @@ const userVal = {
 
 //enemy class initial values
 const enemyVal = {
-    speed: 0.25,
-    width: 10,
-    height: 10,
+    speed: 0.20,
+    width: 15,
+    height: 15,
     textureRedEnemy: PIXI.Texture.from('images/red_enemy.png'),
 };
 
 //bullet class initial values
 const bulletVal = {
     speed: 0.75,
-    width: 2,
-    height: 2,
+    width: 4,
+    height: 4,
     texture: PIXI.Texture.from('images/bullet.png'),
 };
 
 //exp class initial values
 const expVal = {
     speed: 1.25,
-    radius: 2,
+    width: 4,
+    height: 4,
     texture: PIXI.Texture.from('images/exp.png'),
 };
 

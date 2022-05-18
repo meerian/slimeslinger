@@ -7,7 +7,8 @@ import { game } from "../pages/gamePage.js";
 class experience  extends gameObject {
     constructor(x, y) {
         super(x, y, expVal.speed, new PIXI.Sprite.from(expVal.texture));
-        this.radius = expVal.radius;
+        this.width = expVal.width;
+        this.height = expVal.height;
         this.tracking = false;
     }
 

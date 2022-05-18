@@ -7,14 +7,15 @@ import { levelupHandler } from "../pages/levelupPage.js";
 class user extends gameObject {
     constructor() {
         super(userVal.startX, userVal.startY, userVal.speed, new PIXI.Sprite(userVal.textureNormal));
-        this.radius = userVal.radius;
+        this.width = userVal.width;
+        this.height = userVal.height;
         this.direction = "down";
         this.lives = userVal.lives;
         this.lastHit = new Date();
         this.exp = 0;
         this.level = 1;
         this.levelupExp = 5;
-        this.firerate = 500;
+        this.firerate = 750;
     }
 
     updateLocation() {
@@ -28,7 +29,7 @@ class user extends gameObject {
                 this.direction = "right";
             }
             if (this.hitBorderX()) {
-                this.x = app.renderer.width - this.radius;
+                this.x = app.renderer.width - this.width / 2;
             }
         }
         if (currentDirection.leftPressed) {
@@ -41,7 +42,7 @@ class user extends gameObject {
                 this.direction = "left";
             }
             if (this.hitBorderX()) {
-                this.x = this.radius;
+                this.x = this.width  / 2;
             }
         }
 
@@ -55,7 +56,7 @@ class user extends gameObject {
                 this.direction = "down";
             }
             if (this.hitBorderY()) {
-                this.y = app.renderer.height - this.radius;
+                this.y = app.renderer.height - this.height  / 2;
             }
         }
 
@@ -69,8 +70,15 @@ class user extends gameObject {
                 this.direction = "up";
             }
             if (this.hitBorderY()) {
-                this.y = this.radius;
+                this.y = this.height  / 2;
             }
+        }
+        this.spriteUpdate();
+    }
+
+    spriteUpdate() {
+        switch(this.direction) {
+            case "up": 
         }
     }
 
@@ -87,8 +95,8 @@ class user extends gameObject {
         setTimeout(resetHurt, 1000)
     }
 
-    hitBorderX() { return this.x + this.radius > app.renderer.width || this.x - this.radius < 0; }
-    hitBorderY() { return this.y + this.radius > app.renderer.height || this.y - this.radius < 0; }
+    hitBorderX() { return this.x + this.width / 2 > app.renderer.width || this.x - this.width / 2 < 0; }
+    hitBorderY() { return this.y + this.height / 2 > app.renderer.height || this.y - this.height / 2 < 0; }
 
     getLocation() {
         var curLocation = [this.x, this.y];

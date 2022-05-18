@@ -41,7 +41,7 @@ function enemySpawnLocation() {
         }
         addEnemy(x, y);
     }
-    let spawnTime = 10 + 1000 / Math.log(score + 2);
+    let spawnTime = 10 + 2000 / Math.log(score + 2);
     enemyTimeout = setTimeout(enemySpawnLocation, spawnTime);
 }
 
