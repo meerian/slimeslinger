@@ -1,7 +1,6 @@
 ![Game Logo](/images/logo.png)
-<h1>
-Play [Slime Slinger](https://meerian.vip/slimeslinger)
-</h1>
+
+[![pages-build-deployment](https://github.com/meerian/slimeslinger/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/meerian/slimeslinger/actions/workflows/pages/pages-build-deployment)
 
 This is a project named _Slime Slinger_, a javascript game based off autoshooters. 
 
