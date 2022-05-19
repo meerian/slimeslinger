@@ -14,12 +14,28 @@ const textStyle = new PIXI.TextStyle({
     dropShadowAlpha: 0.1
 });
 
+const textStyleTitle = new PIXI.TextStyle({
+    fontFamily: "Arial",
+    fontSize: 30,
+    fontWeight: "bold",
+    fill: "0x235823",
+    dropShadow: true,
+    dropShadowAlpha: 0.1
+});
+
 const drawText = (text, x, y, container) => {
+    text.x = x;
+    text.y = y;
+    container.addChild(text);
+ };
+
+ const drawTextAnchor = (text, x, y, container) => {
     text.x = x;
     text.y = y;
     text.anchor.set(0.5);
     container.addChild(text);
  };
+
 
 //Blur filter
 const blurFilter = new PIXI.filters.BlurFilter();
@@ -36,6 +52,7 @@ const userVal = {
     textureNormal: PIXI.Texture.from('images/user.png'),
     textureHurt: PIXI.Texture.from('images/user_hurt.png'),
     lives: 3,
+    invulTime: 1500,
 };
 
 //enemy class initial values
@@ -65,9 +82,17 @@ const expVal = {
 };
 
 //relic class textures
+const rssheet = new PIXI.BaseTexture.from("images/relics/spritesheet.png");
+const rw = 36;
+const rh = 36;
+
+//1st value is width, 2nd value is height
 const relicTexture = {
-    pbullet: PIXI.Texture.from('images/relics/pbullet.png'),
-    sharpener: PIXI.Texture.from('images/relics/sharpener.png'),
+    pbullet: [0, 0],
+    sharpener: [1, 0],
+    mshiftgun: [2, 0],
+    bdust: [3, 0],
+    idust: [4, 0],
 };
 
 // -------------------------------------------------------------------------------
@@ -131,13 +156,14 @@ class page {
 }
 
 class relic {
-    constructor(name, description, texture, container) {
+    constructor(name, description, pos, container) {
         this.name = name;
         this.description = description;
         this.container = container;
         this.graphic = 0;
 
-        this.sprite = new PIXI.Sprite(texture)
+        let texture = new PIXI.Texture(rssheet, new PIXI.Rectangle(pos[0] * rw, pos[1] * rh, rw, rh));
+        this.sprite = new PIXI.Sprite(texture);
         this.sprite.anchor.set(0.5);
 
         //Setting up the text

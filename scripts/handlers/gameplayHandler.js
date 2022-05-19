@@ -14,7 +14,7 @@ import { clearRelics } from "../handlers/relicHandler.js";
 //Handles bullet firing
 function bulletAutofire() {
     addBullet(player.x, player.y, player.direction);
-    bulletTimeout = setTimeout(bulletAutofire, player.firerate);
+    timeouts.push(setTimeout(bulletAutofire, player.firerate));
 }
 
 //Handles enemy spawning
@@ -43,7 +43,7 @@ function enemySpawnLocation() {
         addEnemy(x, y);
     }
     let spawnTime = 10 + 2000 / Math.log(score + 2);
-    enemyTimeout = setTimeout(enemySpawnLocation, spawnTime);
+    timeouts.push(setTimeout(enemySpawnLocation, spawnTime));
 }
 
 //Main gameplay loop
@@ -91,9 +91,19 @@ export function resetGame() {
     clearRelics();
 
     //clears timeouts
-    clearTimeout(scoreTimeout);
-    clearTimeout(bulletTimeout);
-    clearTimeout(enemyTimeout);
+    while (timeouts[0]) {
+        let cur = timeouts.pop();
+        clearTimeout(cur);
+    }
+    if (toggleInvisidust != 0) {
+        clearInterval(toggleInvisidust);
+        toggleInvisidust = 0;
+    }
+
+    if (toggleInterval != 0) {
+        clearInterval(toggleInterval);
+        toggleInterval = 0;
+    }
 
     game.container.filters = [blurFilter];
     pauseButton.disabled = true;

@@ -19,7 +19,8 @@ class relicPage extends page {
     chooseRelics() {
         let counter = 3;
         while (counter > 0) {
-            let check = Math.floor(Math.random() * 3 + 1);
+            //Should be multiplied by number of relics
+            let check = Math.floor(Math.random() * 5 + 1);
             if (!this.relics.includes(check)) {
                 this.relics.push(check);
                 counter--;
@@ -33,6 +34,10 @@ class relicPage extends page {
     createPage() {
         let x = app.renderer.height / 2;
         let y = app.renderer.width / 3;
+
+        //Text
+        drawTextAnchor(new PIXI.Text("Choose a Relic", textStyleTitle), x, y - 100, this.container);
+
         while (this.relics[0]) {
             let curRec = this.relics.pop();
 
@@ -56,7 +61,7 @@ class relicPage extends page {
             curRec.drawRelic(x, y);
 
             //Creates the text
-            drawText(new PIXI.Text(curRec.getName(), textStyle), x + 22, y, this.container);
+            drawTextAnchor(new PIXI.Text(curRec.getName(), textStyle), x + 22, y, this.container);
             y = y + app.renderer.width / 6;
         }
 

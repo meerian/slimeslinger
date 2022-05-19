@@ -54,7 +54,7 @@ class bullet extends gameObject {
     }
 
     bulletCheck() {
-        return this.lives && !(this.x >= app.renderer.width || this.x <= 0 || this.y >= app.renderer.width || this.y <= 0);
+        return this.lives > 0 && !(this.x >= app.renderer.width || this.x <= 0 || this.y >= app.renderer.width || this.y <= 0);
     }
 }
 

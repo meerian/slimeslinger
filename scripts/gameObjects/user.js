@@ -11,6 +11,7 @@ class user extends gameObject {
         this.width = userVal.width;
         this.height = userVal.height;
         this.direction = "down";
+        this.lives = userVal.lives;
         this.lastHit = new Date();
         this.exp = 0;
         this.level = 1;
@@ -84,7 +85,7 @@ class user extends gameObject {
 
     takeDamage() {
         let newHit = new Date();
-        if ((newHit - this.lastHit) < 1000) { return; }
+        if ((newHit - this.lastHit) < userVal.invulTime) { return; }
         if (this.lives <= 1) {
             gameoverHandler();
             return;
@@ -92,7 +93,7 @@ class user extends gameObject {
         this.lives--;
         this.lastHit = newHit;
         toggleInterval = setInterval(toggleSprite, 200);
-        setTimeout(resetHurt, 1000)
+        setTimeout(resetHurt, userVal.invulTime);
     }
 
     hitBorderX() { return this.x + this.width / 2 > app.renderer.width || this.x - this.width / 2 < 0; }

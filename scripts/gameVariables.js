@@ -89,11 +89,15 @@ function toggleSprite() {
 
 // -------------------------------------------------------------------------------
 
+//Array to hold all timeout functions
+var timeouts = [];
+
 //timeout function reference for bulletTimeout
-var bulletTimeout = 0;
 
 //timeout function reference for enemyTimeout
-var enemyTimeout = 0;
+
+//Array to hold all interval functions
+var toggleInvisidust = 0;
 
 //interval function reference for toggleSprite
 var toggleInterval = 0;

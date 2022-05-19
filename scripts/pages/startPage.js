@@ -18,7 +18,7 @@ class startPage extends page {
         this.container.addChild(logo);
     
         //create highscore
-        drawText(new PIXI.Text("High Score: " + Highscore, textStyle), 55, 15, startscreenContainer);
+        drawText(new PIXI.Text("High Score: " + Highscore, textStyle), 10, 10, startscreenContainer);
 
         //Create start button
         let button = new PIXI.Graphics();
@@ -31,7 +31,7 @@ class startPage extends page {
         this.container.addChild(button);
     
         //Create start text
-        drawText(new PIXI.Text("Start!", textStyle), app.renderer.width / 2, app.renderer.height / 2, startscreenContainer);
+        drawTextAnchor(new PIXI.Text("Start!", textStyle), app.renderer.width / 2, app.renderer.height / 2, startscreenContainer);
     }
 }
 

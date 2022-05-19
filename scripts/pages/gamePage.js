@@ -17,13 +17,13 @@ class gamePage extends page {
         drawExperiences(gameContainer);
 
         //display score
-        drawText(new PIXI.Text("Score:" + score, textStyle), 35, 40, gameContainer);
+        drawText(new PIXI.Text("Score:" + score, textStyle), 10, 35, gameContainer);
 
         //display highscore
-        drawText(new PIXI.Text("High Score: " + Highscore, textStyle), 55, 15, gameContainer);
+        drawText(new PIXI.Text("High Score: " + Highscore, textStyle), 10, 10, gameContainer);
 
         //display lives
-        drawText(new PIXI.Text("Lives: " + player.lives, textStyle), app.renderer.width - 30, 15, gameContainer);
+        drawText(new PIXI.Text("Lives: " + player.lives, textStyle), app.renderer.width - 75, 10, gameContainer);
     }
 
     cleanup() {

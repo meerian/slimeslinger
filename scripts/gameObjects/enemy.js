@@ -51,7 +51,7 @@ class enemy extends gameObject {
     }
 
     enemyCheck() {
-        return this.lives;
+        return this.lives > 0;
     }
 }
 

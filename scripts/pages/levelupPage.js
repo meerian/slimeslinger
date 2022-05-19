@@ -45,9 +45,12 @@ class levelupPage extends page {
     }
 
     createPage() {
-        this.container.filters = [dropShadowFilter];
         let x = app.renderer.height / 2;
         let y = app.renderer.width / 3;
+
+        //Level up text
+        drawTextAnchor(new PIXI.Text("Choose an upgrade", textStyleTitle), x, y - 100, this.container);
+
         while (this.upgrades[0]) {
             let cur = this.upgrades.pop();
 
@@ -64,13 +67,13 @@ class levelupPage extends page {
             //Creates the text
             switch (cur) {
                 case "LIFE":
-                    drawText(new PIXI.Text("gain 1 health", textStyle), x, y, levelupContainer);
+                    drawTextAnchor(new PIXI.Text("gain 1 health", textStyle), x, y, levelupContainer);
                     break;
                 case "SPEED":
-                    drawText(new PIXI.Text("increase your speed", textStyle), x, y, levelupContainer);
+                    drawTextAnchor(new PIXI.Text("increase your speed", textStyle), x, y, levelupContainer);
                     break;
                 case "FIRERATE":
-                    drawText(new PIXI.Text("increase your firerate", textStyle), x, y, levelupContainer);
+                    drawTextAnchor(new PIXI.Text("increase your firerate", textStyle), x, y, levelupContainer);
                     break;
             }
             y = y + app.renderer.width / 6;

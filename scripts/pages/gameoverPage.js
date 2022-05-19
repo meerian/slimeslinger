@@ -10,10 +10,10 @@ class gameoverPage extends page {
 
     createPage() {
         //Generate GAME OVER
-        drawText(new PIXI.Text("GAME OVER", textStyle), app.renderer.height / 2, app.renderer.width / 2 - 50, gameoverContainer);
+        drawTextAnchor(new PIXI.Text("GAME OVER", textStyleTitle), app.renderer.height / 2, app.renderer.width / 2 - 50, gameoverContainer);
 
         //Generate score text
-        drawText(new PIXI.Text("Your Score is: " + this.score, textStyle), app.renderer.height / 2, app.renderer.width / 2, gameoverContainer);
+        drawTextAnchor(new PIXI.Text("Your Score is: " + this.score, textStyle), app.renderer.height / 2, app.renderer.width / 2, gameoverContainer);
 
         let restartY = app.renderer.width / 2 + 50;
         //Generate restart button
@@ -26,7 +26,7 @@ class gameoverPage extends page {
         button.click = function () { restartGame(); };
         this.container.addChild(button);
 
-        drawText(new PIXI.Text("Back to start", textStyle), app.renderer.height / 2, restartY, gameoverContainer);
+        drawTextAnchor(new PIXI.Text("Back to start", textStyle), app.renderer.height / 2, restartY, gameoverContainer);
     }
 }
 
