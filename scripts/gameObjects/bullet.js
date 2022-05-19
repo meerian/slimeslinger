@@ -4,7 +4,7 @@ import { bulletCollide } from "../handlers/collisionHandler.js";
 
 class bullet extends gameObject {
     constructor(userX, userY, direction) {
-        super(userX, userY, bulletVal.speed, new PIXI.Sprite.from(bulletVal.texture));
+        super(userX, userY, bulletVal.speed, new PIXI.Sprite.from(bulletVal.texture), bulletVal.lives);
         switch (direction) {
             case "left":
                 this.dx = -1 * bulletVal.speed;
@@ -54,7 +54,7 @@ class bullet extends gameObject {
     }
 
     bulletCheck() {
-        return this.isAlive && !(this.x >= app.renderer.width || this.x <= 0 || this.y >= app.renderer.width || this.y <= 0);
+        return this.lives && !(this.x >= app.renderer.width || this.x <= 0 || this.y >= app.renderer.width || this.y <= 0);
     }
 }
 

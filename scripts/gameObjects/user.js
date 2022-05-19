@@ -7,11 +7,10 @@ import { relicHandler } from "../pages/relicPage.js"
 
 class user extends gameObject {
     constructor() {
-        super(userVal.startX, userVal.startY, userVal.speed, new PIXI.Sprite(userVal.textureNormal));
+        super(userVal.startX, userVal.startY, userVal.speed, new PIXI.Sprite(userVal.textureNormal), userVal.lives);
         this.width = userVal.width;
         this.height = userVal.height;
         this.direction = "down";
-        this.lives = userVal.lives;
         this.lastHit = new Date();
         this.exp = 0;
         this.level = 1;

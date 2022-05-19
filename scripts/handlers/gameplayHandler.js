@@ -5,6 +5,7 @@ import { addUser, userLocationUpdate } from "../gameObjects/user.js";
 import { resetKeyPressed } from "../eventListeners.js";
 import { startHandler } from "../pages/startPage.js";
 import { game } from "../pages/gamePage.js";
+import { clearRelics } from "../relics/relicList.js";
 
 // -------------------------------------------------------------------------------
 
@@ -87,6 +88,7 @@ export function resetGame() {
     score = 0;
     pause = true;
     resetKeyPressed();
+    clearRelics();
 
     //clears timeouts
     clearTimeout(scoreTimeout);

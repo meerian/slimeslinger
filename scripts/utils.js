@@ -44,6 +44,7 @@ const enemyVal = {
     width: 15,
     height: 15,
     textureRedEnemy: PIXI.Texture.from('images/red_enemy.png'),
+    lives: 1,
 };
 
 //bullet class initial values
@@ -52,6 +53,7 @@ const bulletVal = {
     width: 4,
     height: 4,
     texture: PIXI.Texture.from('images/bullet.png'),
+    lives: 1,
 };
 
 //exp class initial values
@@ -62,15 +64,20 @@ const expVal = {
     texture: PIXI.Texture.from('images/exp.png'),
 };
 
+//relic class textures
+const relicTexture = {
+    sharperBullet: PIXI.Texture.from('images/relic.png'),
+};
+
 // -------------------------------------------------------------------------------
 
 //Common classes
 class gameObject {
-    constructor(x, y, speed, sprite) {
+    constructor(x, y, speed, sprite, lives = 1) {
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.isAlive = true;
+        this.lives = lives;
         this.sprite = sprite;
         this.sprite.anchor.set(0.5);
     }
@@ -120,4 +127,49 @@ class page {
         app.stage.removeChild(this.container);
     }
 
+}
+
+class relic {
+    constructor(name, description, texture, container) {
+        this.name = name;
+        this.description = description;
+        this.container = container;
+        this.graphic = 0;
+
+        this.sprite = new PIXI.Sprite(texture)
+        this.sprite.anchor.set(0.5);
+
+        //Setting up the text
+        this.text = new PIXI.Text(description, textStyle);
+        this.text.x = app.renderer.height / 2;
+        this.text.y = 5 * app.renderer.width / 6;
+        this.text.anchor.set(0.5);
+    }
+    getName() {
+        return this.name;
+    }
+
+    drawRelic(x, y) {
+        this.sprite.x = x - 76;
+        this.sprite.y = y;
+        this.container.addChild(this.sprite);
+    }
+
+    showDescription() {
+        this.container.addChild(this.text);
+    }
+
+    hideDescription() {
+        this.container.removeChild(this.text);
+    }
+
+    //called when adding the relic
+    add() {
+        throw new Error("method add() not implemented.");
+    }
+
+    //called when removing the relic at the end of the game
+    remove() {
+        throw new Error("method remove() not implemented.");
+    }
 }

@@ -60,6 +60,17 @@ pauseButton.onclick = function () {
 //User reference and functions
 var player = 0;
 
+const relicTracker = [];
+
+function iterator(relic) {
+    for (let i = 0; i < relicTracker; i++) {
+        if (relicTracker[i] instanceof relic) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function resetHurt() {
     clearInterval(toggleInterval);
     if (player.sprite.texture == userVal.textureHurt) {

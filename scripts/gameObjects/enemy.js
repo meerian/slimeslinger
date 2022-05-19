@@ -4,7 +4,7 @@ import { enemyCollide } from "../handlers/collisionHandler.js";
 
 class enemy extends gameObject {
     constructor(x, y) {
-        super(x, y, enemyVal.speed, new PIXI.Sprite.from(enemyVal.textureRedEnemy));
+        super(x, y, enemyVal.speed, new PIXI.Sprite.from(enemyVal.textureRedEnemy), enemyVal.lives);
         this.width = enemyVal.width;
         this.height = enemyVal.height;
     }
@@ -51,7 +51,7 @@ class enemy extends gameObject {
     }
 
     enemyCheck() {
-        return this.isAlive;
+        return this.lives;
     }
 }
 

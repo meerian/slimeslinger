@@ -51,7 +51,7 @@ class experience  extends gameObject {
     }
 
     experienceCheck() {
-        return this.isAlive;
+        return this.lives;
     }
 }
 
