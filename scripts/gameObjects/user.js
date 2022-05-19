@@ -14,7 +14,7 @@ class user extends gameObject {
         this.lastHit = new Date();
         this.exp = 0;
         this.level = 1;
-        this.levelupExp = 5;
+        this.levelupExp = 4;
         this.firerate = 750;
     }
 
@@ -108,7 +108,7 @@ class user extends gameObject {
         this.exp += 1;
         if (this.exp == this.levelupExp) {
             this.level++;
-            this.levelupExp = 5 * this.level;
+            this.levelupExp = 4 * this.level;
             this.exp = 0;
             levelLabel.textContent = "Level " + this.level;
             relicHandler();

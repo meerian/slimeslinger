@@ -37,6 +37,8 @@ const drawText = (text, x, y, container) => {
     container.addChild(text);
  };
 
+ //Logo texture
+const logoTexture = PIXI.Texture.from('images/logo.png');
 
 //Blur filter
 const blurFilter = new PIXI.filters.BlurFilter();

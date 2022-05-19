@@ -39,7 +39,6 @@ class startPage extends page {
 
 //Variables
 const startscreenContainer = new PIXI.Container();
-const logoTexture = PIXI.Texture.from('images/game_logo.png');
 var curPage = 0;
 
 
