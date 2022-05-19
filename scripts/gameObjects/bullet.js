@@ -39,6 +39,11 @@ class bullet extends gameObject {
                 this.dy = bulletVal.speed;
                 break;
         }
+        if (relicDict.guninverter) {
+            this.dx = -this.dx;
+            this.dy = -this.dy;
+        }
+
         this.x = userX + this.dx;
         this.y = userY + this.dy;
         this.width = bulletVal.width;

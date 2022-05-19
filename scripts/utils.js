@@ -23,6 +23,7 @@ const textStyleTitle = new PIXI.TextStyle({
     dropShadowAlpha: 0.1
 });
 
+//Default method to draw text with or without anchor
 const drawText = (text, x, y, container) => {
     text.x = x;
     text.y = y;
@@ -79,6 +80,7 @@ const expVal = {
     width: 4,
     height: 4,
     texture: PIXI.Texture.from('images/exp.png'),
+    range: 50,
 };
 
 //relic class textures
@@ -93,6 +95,11 @@ const relicTexture = {
     mshiftgun: [2, 0],
     bdust: [3, 0],
     idust: [4, 0],
+    guninverter: [5, 0],
+    oneup: [6, 0],
+    lubricant: [7, 0],
+    gunpowder: [8, 0],
+    magnet: [9, 0],
 };
 
 // -------------------------------------------------------------------------------

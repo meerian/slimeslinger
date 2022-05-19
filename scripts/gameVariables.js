@@ -62,13 +62,8 @@ var player = 0;
 
 const relicTracker = [];
 
-function iterator(relic) {
-    for (let i = 0; i < relicTracker; i++) {
-        if (relicTracker[i] instanceof relic) {
-            return true;
-        }
-    }
-    return false;
+const relicDict = {
+    guninverter: false,
 }
 
 function resetHurt() {
@@ -92,12 +87,7 @@ function toggleSprite() {
 //Array to hold all timeout functions
 var timeouts = [];
 
-//timeout function reference for bulletTimeout
-
-//timeout function reference for enemyTimeout
-
-//Array to hold all interval functions
-var toggleInvisidust = 0;
-
 //interval function reference for toggleSprite
+var intervals = [];
 var toggleInterval = 0;
+var toggleInvisidust = 0;

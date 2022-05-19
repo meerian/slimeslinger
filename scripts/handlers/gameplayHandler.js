@@ -13,7 +13,9 @@ import { clearRelics } from "../handlers/relicHandler.js";
 
 //Handles bullet firing
 function bulletAutofire() {
-    addBullet(player.x, player.y, player.direction);
+    if (!pause) {
+        addBullet(player.x, player.y, player.direction);
+    }
     timeouts.push(setTimeout(bulletAutofire, player.firerate));
 }
 

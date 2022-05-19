@@ -2,8 +2,7 @@ import { addBullet } from "../gameObjects/bullet.js";
 
 export class piercingBullet extends relic {
     constructor(container) {
-        super("Piercing Bullets", "Bullets can pierce through 1 more enemy",
-            relicTexture.pbullet, container);
+        super("Piercing Bullets", "Bullets can pierce through 1 more enemy", relicTexture.pbullet, container);
     }
 
     add() {
@@ -38,35 +37,37 @@ export class mshiftGun extends relic {
 
     add() {
         function bulletAutofire() {
-            let direction = "";
-            let check = Math.floor(Math.random() * 8 + 1);
-            switch (check) {
-                case 1:
-                    direction = "up";
-                    break;
-                case 2:
-                    direction = "up right";
-                    break;
-                case 3:
-                    direction = "up left";
-                    break;
-                case 4:
-                    direction = "down";
-                    break;
-                case 5:
-                    direction = "down right";
-                    break;
-                case 6:
-                    direction = "down left";
-                    break;
-                case 7:
-                    direction = "left";
-                    break;
-                case 8:
-                    direction = "right";
-                    break;
+            if (!pause) { 
+                let direction = "";
+                let check = Math.floor(Math.random() * 8 + 1);
+                switch (check) {
+                    case 1:
+                        direction = "up";
+                        break;
+                    case 2:
+                        direction = "up right";
+                        break;
+                    case 3:
+                        direction = "up left";
+                        break;
+                    case 4:
+                        direction = "down";
+                        break;
+                    case 5:
+                        direction = "down right";
+                        break;
+                    case 6:
+                        direction = "down left";
+                        break;
+                    case 7:
+                        direction = "left";
+                        break;
+                    case 8:
+                        direction = "right";
+                        break;
+                }
+                addBullet(player.x, player.y, direction);
             }
-            addBullet(player.x, player.y, direction);
             timeouts.push(setTimeout(bulletAutofire, 1000));
         }
         bulletAutofire();
@@ -120,5 +121,77 @@ export class invisiDust extends relic {
 
     remove() {
 
+    }
+}
+
+export class gunInverter extends relic {
+    constructor(container) {
+        super("Gun Inverter", "Bullets now fire in the opposite direction", relicTexture.guninverter, container);
+    }
+
+    add() {
+        relicDict.guninverter = true;
+        relicTracker.push(this);
+    }
+
+    remove() {
+        relicDict.guninverter = false;
+    }
+}
+
+export class oneUp extends relic {
+    constructor(container) {
+        super("One UP!", "Gain +1 to lives", relicTexture.oneup, container);
+    }
+
+    add() {
+        player.addLife();
+        relicTracker.push(this);
+    }
+
+    remove() {
+    }
+}
+
+export class lubricant extends relic {
+    constructor(container) {
+        super("Lubricant", "Increase your speed", relicTexture.lubricant, container);
+    }
+
+    add() {
+        player.addSpeed();
+        relicTracker.push(this);
+    }
+
+    remove() {
+    }
+}
+
+export class gunpowder extends relic {
+    constructor(container) {
+        super("Gunpowder", "Increase your firerate", relicTexture.gunpowder, container);
+    }
+
+    add() {
+        player.addFirerate();
+        relicTracker.push(this);
+    }
+
+    remove() {
+    }
+}
+
+export class magnet extends relic {
+    constructor(container) {
+        super("Magnet", "increase EXP magnet range", relicTexture.magnet, container);
+    }
+
+    add() {
+        expVal.range += 50;
+        relicTracker.push(this);
+    }
+
+    remove() {
+        expVal.range = 50;
     }
 }

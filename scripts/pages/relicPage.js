@@ -1,5 +1,5 @@
 import { pauseGame, resumeGame } from "../handlers/gameplayHandler.js";
-import { parseRelic } from "../handlers/relicHandler.js"
+import { parseRelic, uniqueRcheck } from "../handlers/relicHandler.js"
 
 // -------------------------------------------------------------------------------
 
@@ -20,8 +20,8 @@ class relicPage extends page {
         let counter = 3;
         while (counter > 0) {
             //Should be multiplied by number of relics
-            let check = Math.floor(Math.random() * 5 + 1);
-            if (!this.relics.includes(check)) {
+            let check = Math.floor(Math.random() * 10 + 1);
+            if (!this.relics.includes(check) && !uniqueRcheck(check)) {
                 this.relics.push(check);
                 counter--;
             }

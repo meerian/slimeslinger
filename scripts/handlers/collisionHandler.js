@@ -30,7 +30,7 @@ export function bulletCollide(bullet) {
 
 //Handles collision between enemy and user.
 export function enemyCollide(e) {
-    if (Math.abs(player.x - e.x) < userVal.width && Math.abs(player.y - e.y) < userVal.height) {
+    if (Math.abs(player.x - e.x) < userVal.width - 1 && Math.abs(player.y - e.y) < userVal.height - 1) {
         player.takeDamage();
     }
 }

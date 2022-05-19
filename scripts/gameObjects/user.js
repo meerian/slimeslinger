@@ -1,6 +1,5 @@
 import { currentDirection } from "../eventListeners.js";
 import { gameoverHandler } from "../pages/gameoverPage.js";
-import { levelupHandler } from "../pages/levelupPage.js";
 import { relicHandler } from "../pages/relicPage.js"
 
 // -------------------------------------------------------------------------------
@@ -93,6 +92,7 @@ class user extends gameObject {
         this.lives--;
         this.lastHit = newHit;
         toggleInterval = setInterval(toggleSprite, 200);
+        intervals.push(toggleInterval);
         setTimeout(resetHurt, userVal.invulTime);
     }
 
@@ -111,7 +111,6 @@ class user extends gameObject {
             this.levelupExp = 5 * this.level;
             this.exp = 0;
             levelLabel.textContent = "Level " + this.level;
-            //levelupHandler();
             relicHandler();
         }
         expProgress.style.width = (this.exp / this.levelupExp * 100 | 0) + "%";

@@ -20,7 +20,7 @@ class experience  extends gameObject {
     // Checks if user is close enough to the experience orb
     checkAround() {
         let userLocation = player.getLocation();
-        this.tracking = (Math.abs(userLocation[0] - this.x) < 50 && Math.abs(userLocation[1] - this.y) < 50);
+        this.tracking = (Math.abs(userLocation[0] - this.x) < expVal.range && Math.abs(userLocation[1] - this.y) < expVal.range);
     }
 
     // If tracking flag is toggled on, exp orb will move towards the user
