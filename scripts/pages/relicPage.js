@@ -1,5 +1,5 @@
 import { pauseGame, resumeGame } from "../handlers/gameplayHandler.js";
-import { sharperBullet } from "../relics/relicList.js";
+import { parseRelic } from "../handlers/relicHandler.js"
 
 // -------------------------------------------------------------------------------
 
@@ -18,39 +18,23 @@ class relicPage extends page {
     //Randomly chooses 3 upgrades
     chooseRelics() {
         let counter = 3;
-        let str = "";
-
         while (counter > 0) {
             let check = Math.floor(Math.random() * 3 + 1);
-            switch (check) {
-                case 1:
-                    str = "RELIC 1";
-                    break;
-                case 2:
-                    str = "RELIC 2";
-                    break;
-                case 3:
-                    str = "RELIC 3"
-                    break;
-            }
-            if (this.relicCheck(str)) {
-                this.relics.push(str);
+            if (!this.relics.includes(check)) {
+                this.relics.push(check);
                 counter--;
             }
         }
-    }
-
-    //Checks if upgrade chosen is valid
-    relicCheck(str) {
-        return this.relics.includes(str) == false && str != "";
+        for (let i = 0; i < this.relics.length; i++) {
+            this.relics[i] = parseRelic(this.relics[i], relicContainer);
+        }
     }
 
     createPage() {
         let x = app.renderer.height / 2;
         let y = app.renderer.width / 3;
         while (this.relics[0]) {
-            let cur = this.relics.pop();
-            let curRec = new sharperBullet(this.container);
+            let curRec = this.relics.pop();
 
             //Create relicBox
             let box = new PIXI.Sprite(new PIXI.Texture.from('images/relic_textbox.png'));
@@ -58,7 +42,7 @@ class relicPage extends page {
             box.y = y;
             box.anchor.set(0.5);
             box.interactive = true;
-            box.click = function () { parseRelic(curRec); }
+            box.click = function () { addRelic(curRec); }
             box.on("mouseover", function (event) {
                 curRec.showDescription();
             });
@@ -101,7 +85,7 @@ export function relicHandler() {
 }
 
 //Parse upgrade and apply based on choice selected
-function parseRelic(relic) {
+function addRelic(relic) {
     relic.add();
     curPage.cleanup();
     resumeGame();

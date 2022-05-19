@@ -13,9 +13,3 @@ export class sharperBullet extends relic {
     }
 }
 
-export function clearRelics() {
-    while (relicTracker[0]) {
-        let curRec = relicTracker.pop();
-        curRec.remove();
-    }
-}

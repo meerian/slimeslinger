@@ -5,7 +5,7 @@ import { addUser, userLocationUpdate } from "../gameObjects/user.js";
 import { resetKeyPressed } from "../eventListeners.js";
 import { startHandler } from "../pages/startPage.js";
 import { game } from "../pages/gamePage.js";
-import { clearRelics } from "../relics/relicList.js";
+import { clearRelics } from "../handlers/relicHandler.js";
 
 // -------------------------------------------------------------------------------
 
