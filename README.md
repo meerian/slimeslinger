@@ -1,12 +1,8 @@
-# Slime Slinger
-
-<h1 align="center">
-![Game Logo](/images/logo.png "Game Logo")
-
+![Game Logo](/images/logo.png)
+<h1>
 Play [Slime Slinger](https://meerian.vip/slimeslinger)
 </h1>
 
-<p style="text-align: center;">
 This is a project named _Slime Slinger_, a javascript game based off autoshooters. 
 
 >_"This is a game about slimes, kind of."_ - Wise Man
@@ -30,4 +26,3 @@ Coming soon:
 
 ## Tech Stack:
 Made using Javascript with PixiJS API and Tailwind CSS
-</p>
