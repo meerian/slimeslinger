@@ -1,13 +1,13 @@
-import { sharperBullet } from "../relics/relicList.js";
+import { piercingBullet, sharpener } from "../relics/relicList.js";
 
 export function parseRelic(index, container) {
     switch (index) {
         case 1:
-            return new sharperBullet(container);
+            return new piercingBullet(container);
         case 2:
-            return new sharperBullet(container);
+            return new sharpener(container);
         case 3:
-            return new sharperBullet(container);
+            return new piercingBullet(container);
     }
 }
 

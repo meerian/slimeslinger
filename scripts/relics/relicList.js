@@ -1,10 +1,10 @@
-export class sharperBullet extends relic {
+export class piercingBullet extends relic {
     constructor(container) {
-        super("Sharper Bullets","Bullets can pierce through 1 more enemy", relicTexture.sharperBullet, container);
+        super("Piercing Bullets","Bullets can pierce through 1 more enemy", relicTexture.pbullet, container);
     }
 
     add() {
-        bulletVal.lives = 2;
+        bulletVal.lives++;
         relicTracker.push(this);
     }
 
@@ -13,3 +13,17 @@ export class sharperBullet extends relic {
     }
 }
 
+export class sharpener extends relic {
+    constructor(container) {
+        super("Sharpner","Bullets travel faster", relicTexture.sharpener, container);
+    }
+
+    add() {
+        bulletVal.speed += 0.5;
+        relicTracker.push(this);
+    }
+
+    remove() {
+        bulletVal.speed = 0.75;
+    }
+}

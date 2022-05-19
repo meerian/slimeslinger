@@ -37,7 +37,7 @@ class relicPage extends page {
             let curRec = this.relics.pop();
 
             //Create relicBox
-            let box = new PIXI.Sprite(new PIXI.Texture.from('images/relic_textbox.png'));
+            let box = new PIXI.Sprite(new PIXI.Texture.from('images/relics/relic_textbox.png'));
             box.x = x;
             box.y = y;
             box.anchor.set(0.5);

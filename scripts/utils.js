@@ -66,7 +66,8 @@ const expVal = {
 
 //relic class textures
 const relicTexture = {
-    sharperBullet: PIXI.Texture.from('images/relic.png'),
+    pbullet: PIXI.Texture.from('images/relics/pbullet.png'),
+    sharpener: PIXI.Texture.from('images/relics/sharpener.png'),
 };
 
 // -------------------------------------------------------------------------------
