@@ -1,4 +1,4 @@
-import { resetGame, restart } from "../gameplayHandler.js";
+import { resetGame, restart } from "../handlers/gameplayHandler.js";
 
 // -------------------------------------------------------------------------------
 
@@ -10,18 +10,10 @@ class gameoverPage extends page {
 
     createPage() {
         //Generate GAME OVER
-        let gameoverText = new PIXI.Text("GAME OVER", textStyle);
-        gameoverText.anchor.set(0.5);
-        gameoverText.x = app.renderer.height / 2;
-        gameoverText.y = app.renderer.width / 2 - 50;
-        this.container.addChild(gameoverText);
+        drawTextAnchor(new PIXI.Text("GAME OVER", textStyleTitle), app.renderer.height / 2, app.renderer.width / 2 - 50, gameoverContainer);
 
         //Generate score text
-        let scoreText = new PIXI.Text("Your Score is: " + this.score, textStyle);
-        scoreText.anchor.set(0.5);
-        scoreText.x = app.renderer.height / 2;
-        scoreText.y = app.renderer.width / 2;
-        this.container.addChild(scoreText);
+        drawTextAnchor(new PIXI.Text("Your Score is: " + this.score, textStyle), app.renderer.height / 2, app.renderer.width / 2, gameoverContainer);
 
         let restartY = app.renderer.width / 2 + 50;
         //Generate restart button
@@ -34,11 +26,7 @@ class gameoverPage extends page {
         button.click = function () { restartGame(); };
         this.container.addChild(button);
 
-        let restartText = new PIXI.Text("Back to start", textStyle);
-        restartText.anchor.set(0.5);
-        restartText.x = app.renderer.height / 2;
-        restartText.y = restartY;
-        this.container.addChild(restartText);
+        drawTextAnchor(new PIXI.Text("Back to start", textStyle), app.renderer.height / 2, restartY, gameoverContainer);
     }
 }
 

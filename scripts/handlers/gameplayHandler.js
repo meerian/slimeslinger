@@ -1,10 +1,11 @@
-import { addBullet, bulletLocationUpdate } from "./gameObjects/bullet.js";
-import { addEnemy, enemyLocationUpate } from "./gameObjects/enemy.js";
-import { experienceLocationUpate } from "./gameObjects/experience.js";
-import { addUser, userLocationUpdate, defaultUser } from "./gameObjects/user.js";
-import { resetKeyPressed } from "./eventListeners.js";
-import { startHandler } from "./pages/startPage.js";
-import { game } from "./pages/gamePage.js";
+import { addBullet, bulletLocationUpdate } from "../gameObjects/bullet.js";
+import { addEnemy, enemyLocationUpate } from "../gameObjects/enemy.js";
+import { experienceLocationUpate } from "../gameObjects/experience.js";
+import { addUser, userLocationUpdate } from "../gameObjects/user.js";
+import { resetKeyPressed } from "../eventListeners.js";
+import { startHandler } from "../pages/startPage.js";
+import { game } from "../pages/gamePage.js";
+import { clearRelics } from "../handlers/relicHandler.js";
 
 // -------------------------------------------------------------------------------
 
@@ -12,8 +13,10 @@ import { game } from "./pages/gamePage.js";
 
 //Handles bullet firing
 function bulletAutofire() {
-    addBullet(defaultUser.x, defaultUser.y, defaultUser.direction);
-    bulletTimeout = setTimeout(bulletAutofire, defaultUser.firerate);
+    if (!pause) {
+        addBullet(player.x, player.y, player.direction);
+    }
+    timeouts.push(setTimeout(bulletAutofire, player.firerate));
 }
 
 //Handles enemy spawning
@@ -42,7 +45,7 @@ function enemySpawnLocation() {
         addEnemy(x, y);
     }
     let spawnTime = 10 + 2000 / Math.log(score + 2);
-    enemyTimeout = setTimeout(enemySpawnLocation, spawnTime);
+    timeouts.push(setTimeout(enemySpawnLocation, spawnTime));
 }
 
 //Main gameplay loop
@@ -87,11 +90,22 @@ export function resetGame() {
     score = 0;
     pause = true;
     resetKeyPressed();
+    clearRelics();
 
     //clears timeouts
-    clearTimeout(scoreTimeout);
-    clearTimeout(bulletTimeout);
-    clearTimeout(enemyTimeout);
+    while (timeouts[0]) {
+        let cur = timeouts.pop();
+        clearTimeout(cur);
+    }
+    if (toggleInvisidust != 0) {
+        clearInterval(toggleInvisidust);
+        toggleInvisidust = 0;
+    }
+
+    if (toggleInterval != 0) {
+        clearInterval(toggleInterval);
+        toggleInterval = 0;
+    }
 
     game.container.filters = [blurFilter];
     pauseButton.disabled = true;

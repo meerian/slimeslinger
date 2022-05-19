@@ -1,11 +1,10 @@
-import { enemyCollide } from "../collisionHandler.js";
-import { defaultUser } from "./user.js";
+import { enemyCollide } from "../handlers/collisionHandler.js";
 
 // -------------------------------------------------------------------------------
 
 class enemy extends gameObject {
     constructor(x, y) {
-        super(x, y, enemyVal.speed, new PIXI.Sprite.from(enemyVal.textureRedEnemy));
+        super(x, y, enemyVal.speed, new PIXI.Sprite.from(enemyVal.textureRedEnemy), enemyVal.lives);
         this.width = enemyVal.width;
         this.height = enemyVal.height;
     }
@@ -22,7 +21,7 @@ class enemy extends gameObject {
     }
 
     updateLocation() {
-        let userLocation = defaultUser.getLocation();
+        let userLocation = player.getLocation();
         let newX = this.x;
         let newY = this.y;
         if (this.x < userLocation[0]) {
@@ -52,7 +51,7 @@ class enemy extends gameObject {
     }
 
     enemyCheck() {
-        return this.isAlive;
+        return this.lives > 0;
     }
 }
 

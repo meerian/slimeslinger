@@ -1,12 +1,12 @@
 import { currentDirection } from "../eventListeners.js";
 import { gameoverHandler } from "../pages/gameoverPage.js";
-import { levelupHandler } from "../pages/levelupPage.js";
+import { relicHandler } from "../pages/relicPage.js"
 
 // -------------------------------------------------------------------------------
 
 class user extends gameObject {
     constructor() {
-        super(userVal.startX, userVal.startY, userVal.speed, new PIXI.Sprite(userVal.textureNormal));
+        super(userVal.startX, userVal.startY, userVal.speed, new PIXI.Sprite(userVal.textureNormal), userVal.lives);
         this.width = userVal.width;
         this.height = userVal.height;
         this.direction = "down";
@@ -84,7 +84,7 @@ class user extends gameObject {
 
     takeDamage() {
         let newHit = new Date();
-        if ((newHit - this.lastHit) < 1000) { return; }
+        if ((newHit - this.lastHit) < userVal.invulTime) { return; }
         if (this.lives <= 1) {
             gameoverHandler();
             return;
@@ -92,7 +92,8 @@ class user extends gameObject {
         this.lives--;
         this.lastHit = newHit;
         toggleInterval = setInterval(toggleSprite, 200);
-        setTimeout(resetHurt, 1000)
+        intervals.push(toggleInterval);
+        setTimeout(resetHurt, userVal.invulTime);
     }
 
     hitBorderX() { return this.x + this.width / 2 > app.renderer.width || this.x - this.width / 2 < 0; }
@@ -110,7 +111,7 @@ class user extends gameObject {
             this.levelupExp = 5 * this.level;
             this.exp = 0;
             levelLabel.textContent = "Level " + this.level;
-            levelupHandler();
+            relicHandler();
         }
         expProgress.style.width = (this.exp / this.levelupExp * 100 | 0) + "%";
         expLabel.textContent = (this.exp / this.levelupExp * 100 | 0) + "%";
@@ -135,45 +136,24 @@ class user extends gameObject {
 var expProgress = document.getElementById("expProgress");
 var expLabel = document.getElementById("expLabel");
 var levelLabel = document.getElementById("levelLabel");
-export var defaultUser = 0;
-var toggleInterval = 0;
-
-// -------------------------------------------------------------------------------
-
-//Private methods
-function resetHurt() {
-    clearInterval(toggleInterval);
-    if (defaultUser.sprite.texture == userVal.textureHurt) {
-        defaultUser.sprite.texture = userVal.textureNormal;
-    }
-}
-
-function toggleSprite() {
-    if (defaultUser.sprite.texture == userVal.textureNormal) {
-        defaultUser.sprite.texture = userVal.textureHurt;
-    } else {
-        defaultUser.sprite.texture = userVal.textureNormal;
-    }
-
-}
 
 // -------------------------------------------------------------------------------
 
 //Public methods
 export function addUser() {
-    defaultUser = new user();
+    player = new user();
 }
 
 export function userLocationUpdate() {
-    defaultUser.updateLocation();
+    player.updateLocation();
 }
 
 export function drawUser(container) {
-    defaultUser.draw(container);
+    player.draw(container);
 }
 
 export function emptyUser() {
     expProgress.style.width = "0%";
     expLabel.textContent = "0%";
-    defaultUser = 0;
+    player = 0;
 }

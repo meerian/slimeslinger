@@ -14,11 +14,29 @@ const textStyle = new PIXI.TextStyle({
     dropShadowAlpha: 0.1
 });
 
+const textStyleTitle = new PIXI.TextStyle({
+    fontFamily: "Arial",
+    fontSize: 30,
+    fontWeight: "bold",
+    fill: "0x235823",
+    dropShadow: true,
+    dropShadowAlpha: 0.1
+});
+
+//Default method to draw text with or without anchor
 const drawText = (text, x, y, container) => {
     text.x = x;
     text.y = y;
     container.addChild(text);
  };
+
+ const drawTextAnchor = (text, x, y, container) => {
+    text.x = x;
+    text.y = y;
+    text.anchor.set(0.5);
+    container.addChild(text);
+ };
+
 
 //Blur filter
 const blurFilter = new PIXI.filters.BlurFilter();
@@ -35,6 +53,7 @@ const userVal = {
     textureNormal: PIXI.Texture.from('images/user.png'),
     textureHurt: PIXI.Texture.from('images/user_hurt.png'),
     lives: 3,
+    invulTime: 1500,
 };
 
 //enemy class initial values
@@ -43,6 +62,7 @@ const enemyVal = {
     width: 15,
     height: 15,
     textureRedEnemy: PIXI.Texture.from('images/red_enemy.png'),
+    lives: 1,
 };
 
 //bullet class initial values
@@ -51,6 +71,7 @@ const bulletVal = {
     width: 4,
     height: 4,
     texture: PIXI.Texture.from('images/bullet.png'),
+    lives: 1,
 };
 
 //exp class initial values
@@ -59,17 +80,37 @@ const expVal = {
     width: 4,
     height: 4,
     texture: PIXI.Texture.from('images/exp.png'),
+    range: 50,
+};
+
+//relic class textures
+const rssheet = new PIXI.BaseTexture.from("images/relics/spritesheet.png");
+const rw = 36;
+const rh = 36;
+
+//1st value is width, 2nd value is height
+const relicTexture = {
+    pbullet: [0, 0],
+    sharpener: [1, 0],
+    mshiftgun: [2, 0],
+    bdust: [3, 0],
+    idust: [4, 0],
+    guninverter: [5, 0],
+    oneup: [6, 0],
+    lubricant: [7, 0],
+    gunpowder: [8, 0],
+    magnet: [9, 0],
 };
 
 // -------------------------------------------------------------------------------
 
 //Common classes
 class gameObject {
-    constructor(x, y, speed, sprite) {
+    constructor(x, y, speed, sprite, lives = 1) {
         this.x = x;
         this.y = y;
         this.speed = speed;
-        this.isAlive = true;
+        this.lives = lives;
         this.sprite = sprite;
         this.sprite.anchor.set(0.5);
     }
@@ -119,4 +160,50 @@ class page {
         app.stage.removeChild(this.container);
     }
 
+}
+
+class relic {
+    constructor(name, description, pos, container) {
+        this.name = name;
+        this.description = description;
+        this.container = container;
+        this.graphic = 0;
+
+        let texture = new PIXI.Texture(rssheet, new PIXI.Rectangle(pos[0] * rw, pos[1] * rh, rw, rh));
+        this.sprite = new PIXI.Sprite(texture);
+        this.sprite.anchor.set(0.5);
+
+        //Setting up the text
+        this.text = new PIXI.Text(description, textStyle);
+        this.text.x = app.renderer.height / 2;
+        this.text.y = 5 * app.renderer.width / 6;
+        this.text.anchor.set(0.5);
+    }
+    getName() {
+        return this.name;
+    }
+
+    drawRelic(x, y) {
+        this.sprite.x = x - 76;
+        this.sprite.y = y;
+        this.container.addChild(this.sprite);
+    }
+
+    showDescription() {
+        this.container.addChild(this.text);
+    }
+
+    hideDescription() {
+        this.container.removeChild(this.text);
+    }
+
+    //called when adding the relic
+    add() {
+        throw new Error("method add() not implemented.");
+    }
+
+    //called when removing the relic at the end of the game
+    remove() {
+        throw new Error("method remove() not implemented.");
+    }
 }

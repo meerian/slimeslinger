@@ -1,10 +1,10 @@
-import { bulletCollide } from "../collisionHandler.js";
+import { bulletCollide } from "../handlers/collisionHandler.js";
 
 // -------------------------------------------------------------------------------
 
 class bullet extends gameObject {
     constructor(userX, userY, direction) {
-        super(userX, userY, bulletVal.speed, new PIXI.Sprite.from(bulletVal.texture));
+        super(userX, userY, bulletVal.speed, new PIXI.Sprite.from(bulletVal.texture), bulletVal.lives);
         switch (direction) {
             case "left":
                 this.dx = -1 * bulletVal.speed;
@@ -39,6 +39,11 @@ class bullet extends gameObject {
                 this.dy = bulletVal.speed;
                 break;
         }
+        if (relicDict.guninverter) {
+            this.dx = -this.dx;
+            this.dy = -this.dy;
+        }
+
         this.x = userX + this.dx;
         this.y = userY + this.dy;
         this.width = bulletVal.width;
@@ -54,7 +59,7 @@ class bullet extends gameObject {
     }
 
     bulletCheck() {
-        return this.isAlive && !(this.x >= app.renderer.width || this.x <= 0 || this.y >= app.renderer.width || this.y <= 0);
+        return this.lives > 0 && !(this.x >= app.renderer.width || this.x <= 0 || this.y >= app.renderer.width || this.y <= 0);
     }
 }
 

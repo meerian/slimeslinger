@@ -1,6 +1,5 @@
-import { enemies } from "./gameObjects/enemy.js";
-import { defaultUser } from "./gameObjects/user.js"
-import { addExperience } from "./gameObjects/experience.js";
+import { enemies } from "../gameObjects/enemy.js";
+import { addExperience } from "../gameObjects/experience.js";
 
 // -------------------------------------------------------------------------------
 
@@ -20,8 +19,8 @@ export function bulletCollide(bullet) {
     
     let collided = checkAround(bullet.x, bullet.y);
     if (collided != 0) {
-        collided.isAlive = false;
-        bullet.isAlive = false;
+        collided.lives--;
+        bullet.lives--;
         addExperience(bullet.x, bullet.y);
         updateScore(1);
     }
@@ -31,8 +30,8 @@ export function bulletCollide(bullet) {
 
 //Handles collision between enemy and user.
 export function enemyCollide(e) {
-    if (Math.abs(defaultUser.x - e.x) < userVal.width && Math.abs(defaultUser.y - e.y) < userVal.height) {
-        defaultUser.takeDamage();
+    if (Math.abs(player.x - e.x) < userVal.width - 1 && Math.abs(player.y - e.y) < userVal.height - 1) {
+        player.takeDamage();
     }
 }
 
@@ -40,8 +39,8 @@ export function enemyCollide(e) {
 
 //Handles collision between experience and user.
 export function experienceCollide(e) {
-    if (Math.abs(defaultUser.x - e.x) < userVal.width && Math.abs(defaultUser.y - e.y) < userVal.height) {
-        e.isAlive = false;
-        defaultUser.gainExperience();
+    if (Math.abs(player.x - e.x) < userVal.width && Math.abs(player.y - e.y) < userVal.height) {
+        e.lives--;
+        player.gainExperience();
     }
 }

@@ -1,5 +1,4 @@
-import { experienceCollide } from "../collisionHandler.js";
-import { defaultUser } from "./user.js";
+import { experienceCollide } from "../handlers/collisionHandler.js";
 import { game } from "../pages/gamePage.js";
 
 // -------------------------------------------------------------------------------
@@ -20,8 +19,8 @@ class experience  extends gameObject {
 
     // Checks if user is close enough to the experience orb
     checkAround() {
-        let userLocation = defaultUser.getLocation();
-        this.tracking = (Math.abs(userLocation[0] - this.x) < 50 && Math.abs(userLocation[1] - this.y) < 50);
+        let userLocation = player.getLocation();
+        this.tracking = (Math.abs(userLocation[0] - this.x) < expVal.range && Math.abs(userLocation[1] - this.y) < expVal.range);
     }
 
     // If tracking flag is toggled on, exp orb will move towards the user
@@ -29,7 +28,7 @@ class experience  extends gameObject {
         if (!this.tracking) {
             this.checkAround();
         } else {
-            let userLocation = defaultUser.getLocation();
+            let userLocation = player.getLocation();
             let newX = this.x;
             let newY = this.y;
             if (this.x < userLocation[0]) {
@@ -52,7 +51,7 @@ class experience  extends gameObject {
     }
 
     experienceCheck() {
-        return this.isAlive;
+        return this.lives;
     }
 }
 
