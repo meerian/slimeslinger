@@ -37,7 +37,7 @@ const drawText = (text, x, y, container, isAnchored = false) => {
     button.y = y;
     if (isAnchored) { button.anchor.set(0.5); }
     button.interactive = true;
-    button.click = function () {  func(); }
+    button.on('pointerdown', function () {  func(); });
     container.addChild(button);
  }
 

@@ -52,11 +52,21 @@ class startPage extends page {
         box.anchor.set(0.5);
         box.interactive = true;
         box.click = function () { text.text = "Copied!"; navigator.clipboard.writeText(shareText); }
+        box.tap = function () { text.text = "Copied!"; navigator.clipboard.writeText(shareText); }
         box.on("mouseover", function (event) {
             startscreenContainer.addChild(shareContainer);
         });
 
         box.on("mouseout", function (event) {
+            text.text = "Share your\nhighscore!"
+            startscreenContainer.removeChild(shareContainer);
+        });
+
+        box.on("touchstart", function (event) {
+            startscreenContainer.addChild(shareContainer);
+        });
+
+        box.on("touchendoutside", function (event) {
             text.text = "Share your\nhighscore!"
             startscreenContainer.removeChild(shareContainer);
         });

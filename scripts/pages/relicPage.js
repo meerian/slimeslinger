@@ -47,12 +47,21 @@ class relicPage extends page {
             box.y = y;
             box.anchor.set(0.5);
             box.interactive = true;
-            box.click = function () { addRelic(curRec); }
-            box.on("mouseover", function (event) {
+            box.on("click", function () { addRelic(curRec); });
+            box.on("tap", function () { addRelic(curRec); });
+            box.on("pointerover", function (event) {
                 curRec.showDescription();
             });
 
-            box.on("mouseout", function (event) {
+            box.on("pointerout", function (event) {
+                curRec.hideDescription();
+            });
+            this.container.addChild(box);
+            box.on("touchstart", function (event) {
+                curRec.showDescription();
+            });
+
+            box.on("touchendoutside", function (event) {
                 curRec.hideDescription();
             });
             this.container.addChild(box);
