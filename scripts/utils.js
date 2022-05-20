@@ -24,18 +24,22 @@ const textStyleTitle = new PIXI.TextStyle({
 });
 
 //Default method to draw text with or without anchor
-const drawText = (text, x, y, container) => {
+const drawText = (text, x, y, container, isAnchored = false) => {
     text.x = x;
     text.y = y;
+    if (isAnchored) { text.anchor.set(0.5); }
     container.addChild(text);
  };
 
- const drawTextAnchor = (text, x, y, container) => {
-    text.x = x;
-    text.y = y;
-    text.anchor.set(0.5);
-    container.addChild(text);
- };
+ const drawButton = (x, y, func, container, isAnchored = false) => {
+    let button = new PIXI.Sprite(new PIXI.Texture.from('images/button.png'));
+    button.x = x;
+    button.y = y;
+    if (isAnchored) { button.anchor.set(0.5); }
+    button.interactive = true;
+    button.click = function () {  func(); }
+    container.addChild(button);
+ }
 
  //Logo texture
 const logoTexture = PIXI.Texture.from('images/logo.png');

@@ -36,7 +36,7 @@ class relicPage extends page {
         let y = app.renderer.width / 3;
 
         //Text
-        drawTextAnchor(new PIXI.Text("Choose a Relic", textStyleTitle), x, y - 100, this.container);
+        drawText(new PIXI.Text("Choose a Relic", textStyleTitle), x, y - 100, this.container, true);
 
         while (this.relics[0]) {
             let curRec = this.relics.pop();
@@ -61,7 +61,7 @@ class relicPage extends page {
             curRec.drawRelic(x, y);
 
             //Creates the text
-            drawTextAnchor(new PIXI.Text(curRec.getName(), textStyle), x + 22, y, this.container);
+            drawText(new PIXI.Text(curRec.getName(), textStyle), x + 22, y, this.container, true);
             y = y + app.renderer.width / 6;
         }
 
