@@ -37,21 +37,14 @@ function setHighscore(hScore) {
 // -------------------------------------------------------------------------------
 
 //Pause button and functions
-var pauseButton = document.getElementById("Pause");
 var pause = false;
 
-pauseButton.onclick = function () {
-    if (pauseButton.innerHTML == "Pause") {
-        pauseButton.innerHTML = "Start";
-    } else {
-        pauseButton.innerHTML = "Pause";
-    }
+function pauseToggle() {
     if (pause) {
         ticker.start();
     } else {
         ticker.stop();
     }
-
     pause = !pause;
 };
 

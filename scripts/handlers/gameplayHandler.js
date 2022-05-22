@@ -69,7 +69,6 @@ export function pauseGame() {
     pause = true;
     ticker.stop();
     game.container.filters = [blurFilter];
-    pauseButton.disabled = true;
 }
 
 //Called after level up option chosen
@@ -77,7 +76,6 @@ export function resumeGame() {
     pause = false;
     ticker.start();
     game.container.filters = [];
-    pauseButton.disabled = false;
 }
 
 //resets game
@@ -108,7 +106,6 @@ export function resetGame() {
     }
 
     game.container.filters = [blurFilter];
-    pauseButton.disabled = true;
 }
 
 //Brings user back to start screen
@@ -128,5 +125,4 @@ export function start() {
     ticker.add(() => gameLoop());
     ticker.start();
     pause = false;
-    pauseButton.disabled = false;
 }

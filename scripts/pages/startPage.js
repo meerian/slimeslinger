@@ -42,7 +42,7 @@ class startPage extends page {
         shareContainer.addChild(text);
 
         //Share button text
-        let shareText = "I just got a score of " + Highscore + " in Slime Slinger! Think you can beat my score? Try now at: \nhttps://meerian.vip/slimeslinger"
+        let shareText = "I just got a score of " + Highscore + " in Slime Slinger! Think you can beat my score? Try now at: \nhttps://meerian.itch.io/slime-slinger"
 
 
         //Create share button

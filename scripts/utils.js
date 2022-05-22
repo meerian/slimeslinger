@@ -3,7 +3,7 @@ const app = new PIXI.Application({
     view: document.getElementById("myCanvas"),
     backgroundColor: 0xB9D980
 });
-app.renderer.resize(1000, 1000);
+app.renderer.resize(800, 800);
 
 //Main textstyle for the game
 const textStyle = new PIXI.TextStyle({

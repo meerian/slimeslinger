@@ -8,102 +8,20 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 </head>
 
-<body class="bg-beige leading-normal tracking-normal text-gray-900" style="font-family: 'Source Sans Pro', sans-serif;">
-    <div class="h-screen pb-60 bg-right bg-cover" style="background-image:url('./images/website/background.svg');">
+<body class="leading-normal tracking-normal text-gray-900" style="font-family: 'Source Sans Pro', sans-serif;">
+    <!-- Game Page -->
+    <div class="flex justify-center items-center h-screen space-x-4">
+        <!-- Canvas and EXP Bar -->
+        <div class="space-y-2">
+            <canvas id="myCanvas" class="border-2 border-lincolngreen"></canvas>
 
-        <!-- Top Navbar -->
-        <div class="w-full container mx-auto p-6">
-            <div class="w-full flex items-center justify-between">
-                <a class="flex items-center no-underline hover:no-underline" href="http://www.meerian.vip/index.html">
-                    <img src="./images/website/logo.svg">
-                </a>
-
-                <nav class="bg-transparent border-gray-200 px-2 sm:px-4 py-2.5 rounded">
-                    <div class="container flex flex-wrap justify-between items-center mx-auto">
-                        <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
-                            <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-xl md:font-medium">
-                                <li>
-                                    <a href="http://www.meerian.vip/index.html"
-                                        class="whitespace-nowrap block py-2 pr-4 pl-3 text-lincolngreen border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 hover:text-blackcoffee md:p-0">Homepage</a>
-                                </li>
-                                <li>
-                                    <a href="http://www.meerian.vip/AboutMe.html"
-                                        class="whitespace-nowrap block py-2 pr-4 pl-3 text-lincolngreen border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 hover:text-blackcoffee md:p-0">About
-                                        Me</a>
-                                </li>
-                                <li>
-                                    <a href="http://www.meerian.vip/MyProjects.html"
-                                        class="whitespace-nowrap block py-2 pr-4 pl-3 text-lincolngreen border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 hover:text-blackcoffee md:p-0">My
-                                        Projects</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-
-                <div class="flex w-1/2 justify-end content-center">
-                    <a class="inline-block text-lincolngreen no-underline h-10 p-2 md:h-auto md:p-4"
-                        data-tippy-content="linkedin_page" href="https://www.linkedin.com/in/myron-neo/"
-                        target="_blank">
-                        <img src="./images/website/linkedin.svg">
-                    </a>
-                    <a class="inline-block text-lincolngreen no-underline hover:text-indigo-800 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 "
-                        data-tippy-content="#github_page" href="https://github.com/meerian" target="_blank">
-                        <img src="./images/website/github.svg">
-                    </a>
+            <div>
+                <div class="flex justify-between">
+                    <span id="levelLabel" class="text-base text-lincolngreen dark:text-white font-bold">Level 1</span>
+                    <span id="expLabel" class="text-sm font-semibold text-lincolngreen dark:text-white">0%</span>
                 </div>
-
-            </div>
-        </div>
-
-        <!-- Game Page -->
-        <div class="flex justify-center items-center h-screen space-x-4">
-            
-            <!-- Canvas and EXP Bar -->
-            <div class="space-y-2">
-                <canvas id="myCanvas" class="border-2 border-lincolngreen"></canvas>
-
-                <div>
-                    <div class="flex justify-between">
-                        <span id="levelLabel" class="text-base text-lincolngreen dark:text-white font-bold">Level 1</span>
-                        <span id= "expLabel" class="text-sm font-semibold text-lincolngreen dark:text-white">0%</span>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 border-2 border-black">
-                        <div id= "expProgress" class="bg-green-400 h-3 rounded-full" style="width: 0%"></div>
-                    </div>
-                </div>
-                <div class="flex justify-center items-center">
-                    <div>
-                        <button id="left" class="bg-transparent hover:bg-lincolngreen text-lincolngreen font-semibold hover:text-white py-2 px-4 border border-lincolngreen hover:border-transparent rounded max-h-10">left<button>
-                    </div>
-                    <div>
-                        <div>
-                            <button id="up" class="bg-transparent hover:bg-lincolngreen text-lincolngreen font-semibold hover:text-white py-2 px-4 border border-lincolngreen hover:border-transparent rounded w-20 max-h-10">up      <button>
-                        </div>
-                        <div>
-                            <button id="down" class="bg-transparent hover:bg-lincolngreen text-lincolngreen font-semibold hover:text-white py-2 px-4 border border-lincolngreen hover:border-transparent rounded w-20 max-h-10">down<button>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <button id="right" class="bg-transparent hover:bg-lincolngreen text-lincolngreen font-semibold hover:text-white py-2 px-4 border border-lincolngreen hover:border-transparent rounded max-h-10">right<button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-4 justify-center items-center hidden md:block">
-
-                <!-- Controls Display -->
-                <div class="px-3 border-double border-lincolngreen border-4 bg-beige">
-                    <p class="text-lincolngreen font-semibold"> Controls: </p>
-                    <p class="text-lincolngreen">Arrow keys to move.</p>    
-                    <p class="text-lincolngreen font-semibold"> Tip: </p>
-                    <p class="text-lincolngreen">If the canvas does <br> not fit the screen, <br> try zooming out the webpage.</p>   
-                </div>
-
-                <!-- Pause Button -->
-                <div>
-                    <button id="Pause" class="bg-transparent hover:bg-lincolngreen text-lincolngreen font-semibold hover:text-white py-2 px-4 border border-lincolngreen hover:border-transparent rounded max-h-10" disabled>Pause<button>
+                <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 border-2 border-black">
+                    <div id="expProgress" class="bg-green-400 h-3 rounded-full" style="width: 0%"></div>
                 </div>
             </div>
         </div>

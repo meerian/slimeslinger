@@ -18,16 +18,6 @@ export var currentDirection = new keyPressed();
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
-//For Mobile
-document.getElementById("up").addEventListener("touchstart", touchStartUpHandler, false);
-document.getElementById("up").addEventListener("touchend", touchEndUpHandler, false);
-document.getElementById("down").addEventListener("touchstart", touchStartDownHandler, false);
-document.getElementById("down").addEventListener("touchend", touchEndDownHandler, false);
-document.getElementById("left").addEventListener("touchstart", touchStartLeftHandler, false);
-document.getElementById("left").addEventListener("touchend", touchEndLeftHandler, false);
-document.getElementById("right").addEventListener("touchstart", touchStartRightHandler, false);
-document.getElementById("right").addEventListener("touchend", touchEndRightHandler, false);
-
 export function resetKeyPressed() {
     currentDirection.upPressed = false;
     currentDirection.leftPressed = false;
@@ -67,37 +57,4 @@ function keyUpHandler(e) {
     if (e.key == "down" || e.key == "ArrowDown" || e.key == "s") {
         currentDirection.downPressed = false;
     }
-}
-
-function touchStartUpHandler(e) {
-    currentDirection.upPressed = true;
-}
-
-function touchEndUpHandler(e) {
-    currentDirection.upPressed = false;
-}
-
-function touchStartDownHandler(e) {
-    currentDirection.downPressed = true;
-}
-
-function touchEndDownHandler(e) {
-    currentDirection.downPressed = false;
-}
-
-function touchStartLeftHandler(e) {
-    currentDirection.leftPressed = true;
-}
-
-function touchEndLeftHandler(e) {
-    currentDirection.leftPressed = false;
-}
-
-
-function touchStartRightHandler(e) {
-    currentDirection.rightPressed = true;
-}
-
-function touchEndRightHandler(e) {
-    currentDirection.rightPressed = false;
 }
